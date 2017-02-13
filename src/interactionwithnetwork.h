@@ -20,7 +20,7 @@ class InteractionWithNetwork
 {
 public:
     InteractionWithNetwork();
-    static void setNameColumns(QStandardItemModel *model, const char* fileName);
+    static QStringList setNameColumns(QStandardItemModel *model, const char* fileName);
     static void getQuandlData(const char* urlDownload, const char* outFileName);
     static int countRowsInTable(const char* fileName);
     static int countColumnsInTable(const char* fileName);

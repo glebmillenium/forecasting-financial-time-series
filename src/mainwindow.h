@@ -34,15 +34,13 @@ public:
 private slots:
     void on_pushButton_clicked();
 
-    void on_pushButton_2_clicked();
-
     void on_ButtonAddRow_clicked();
 
     void on_ButtonPasteRow_clicked();
 
     void on_ButtonDeleteRow_clicked();
 
-    void on_pushButton_2_pressed();
+    void on_ButtonUploadData_clicked();
 
 private:
     Ui::MainWindow *ui;

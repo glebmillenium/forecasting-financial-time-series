@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     plot->autoReplot();
     setGraphData();
 
-    const char* fileName = "file.csv";
+    /*const char* fileName = "file.csv";
     const char* link =
             "https://www.quandl.com/api/v3/datasets/CHRIS/ICE_B1.csv?api_key=A8BF6LxL-pz3f-5fZ3sy&transform=rdiff";
     InteractionWithNetwork::getQuandlData(link, fileName);
@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
                                    InteractionWithNetwork::countColumnsInTable(fileName));
     InteractionWithNetwork::setNameColumns(model, fileName);
     InteractionWithNetwork::fillingTable(fileName, model, this);
-    ui->tableView->setModel(model);
+    ui->tableView->setModel(model);*/
 }
 
 MainWindow::~MainWindow()
@@ -65,13 +65,6 @@ void MainWindow::on_pushButton_clicked()
     float* data = statistic->getTreatmentDataRecording(8);
     //qDebug() << data[0];
     NeuroNetwork *network = new NeuroNetwork(3, 1, data, statistic->getSizeSample());
-}
-
-
-void MainWindow::on_pushButton_2_clicked()
-{
-    upload = new DialogUploadData();
-    upload->show();
 }
 
 void MainWindow::setGraphData()
@@ -113,3 +106,9 @@ void MainWindow::on_ButtonDeleteRow_clicked()
     model->removeRows(ui->tableView->currentIndex().row(), 1);
 }
 
+
+void MainWindow::on_ButtonUploadData_clicked()
+{
+    upload = new DialogUploadData();
+    upload->showing(QString("https://www.quandl.com/api/v3/datasets/CHRIS/ICE_B1.csv?api_key=A8BF6LxL-pz3f-5fZ3sy&transform=rdiff"));
+}

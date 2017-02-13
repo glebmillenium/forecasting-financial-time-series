@@ -50,7 +50,7 @@ int InteractionWithNetwork::countColumnsInTable(const char* fileName){
     return j;
 }
 
-void InteractionWithNetwork::setNameColumns(QStandardItemModel *model, const char* fileName){
+QStringList InteractionWithNetwork::setNameColumns(QStandardItemModel *model, const char* fileName){
     string s;
     ifstream file;
     file.open(fileName);
@@ -70,6 +70,7 @@ void InteractionWithNetwork::setNameColumns(QStandardItemModel *model, const cha
     while (pos < s.length() && prev < s.length());
     model->setHorizontalHeaderLabels(list);
     file.close();
+    return list;
 }
 
 void InteractionWithNetwork::fillingTable(const char* fileName,
