@@ -31,10 +31,16 @@ class DialogUploadData : public QDialog
 public:
     DialogUploadData(QWidget *parent = 0);
     ~DialogUploadData();
+    QStandardItemModel *result;
     void showing(QString url = "");
+    QStandardItemModel getModel();
 
 private slots:
     void on_Upload_clicked();
+
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
 
 private:
     /**
@@ -46,6 +52,7 @@ private:
      */
     Ui::DialogUploadData *ui;
 
+    bool accept = false;
     /**
      * @brief model
      *   Матричный массив, связанный

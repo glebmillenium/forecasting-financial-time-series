@@ -16,7 +16,7 @@
 #include <QStandardItemModel>
 #include <QStringListModel>
 #include <QTableWidgetItem>
-
+#include "datescaledraw.h"
 
 namespace Ui {
 class MainWindow;

@@ -5,7 +5,7 @@ DateScaleDraw::DateScaleDraw( const QTime &base ):
 {
     setLabelRotation( -45.0 );
 }
-virtual QwtText DateScaleDraw::label( double v ) const
+QwtText DateScaleDraw::label( double v ) const
 {
     return (QwtText) "12.12";
 }

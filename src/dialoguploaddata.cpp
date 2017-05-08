@@ -62,6 +62,11 @@ void DialogUploadData::showing(QString url)
     this->show();
 }
 
+QStandardItemModel DialogUploadData::getModel()
+{
+    if(accept){ reutrn model;} else {return new QStandardItemModel();}
+}
+
 /**
  * @brief DialogUploadData::on_Upload_clicked
  *   Событие, вызываемого кликом по кнопке
@@ -95,4 +100,14 @@ void DialogUploadData::on_Upload_clicked()
 
     InteractionWithNetwork::fillingTable(fileName, model, this);
     ui->tableView->setModel(model);
+}
+
+void DialogUploadData::on_buttonBox_accepted()
+{
+    this->accept = true;
+}
+
+void DialogUploadData::on_buttonBox_rejected()
+{
+    this->accept = false;
 }

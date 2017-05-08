@@ -10,38 +10,42 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = main_project
 TEMPLATE = app
-include ( /usr/local/qwt-6.1.3/features/qwt.prf )
+#include ( /usr/local/qwt-6.1.3/features/qwt.prf )
+INCLUDEPATH += /usr/include/qwt /usr/include/curl
+LIBS += -L/usr/local -lcrypt -lfann -lqwt-qt5 -lmysqlcppconn
 
-LIBS += -L/usr/local/lib -lfann
-
-SOURCES += main.cpp\
-        mainwindow.cpp \
+SOURCES += Rconnection.cc\
+    main.cpp\
+    mainwindow.cpp \
     interactionwithnetwork.cpp \
     statisticalparameters.cpp \
     neuronetwork.cpp \
-    dialoguploaddata.cpp
+    dialoguploaddata.cpp \
+    ManagerSocket.cpp \
+    datescaledraw.cpp \
+    ConnectorDB.cpp
 
 HEADERS  += mainwindow.h \
-    curl.h \
-    curlbuild.h \
-    curlrules.h \
-    curlver.h \
-    easy.h \
-    mprintf.h \
-    multi.h \
-    stdcheaders.h \
-    typecheck-gcc.h \
     interactionwithnetwork.h \
     statisticalparameters.h \
     neuronetwork.h \
-    dialoguploaddata.h
+    dialoguploaddata.h \
+    Rsrv.h \
+    ManagerSocket.h \
+    datescaledraw.h \
+    ConnectorDB.h \
+    config.h \
+    sisocks.h \
+    Rconnection.h \
+    config.h
 
 FORMS    += mainwindow.ui \
-    dialoguploaddata.ui
+            dialoguploaddata.ui
 
 DISTFILES += \
-    main_project.pro.user
+    main_project.pro.user \
+    main_project.pro.user.7adb7c2
 
 unix: CONFIG += link_pkgconfig \
-            qwt
+                qwt
 unix: PKGCONFIG += libcurl

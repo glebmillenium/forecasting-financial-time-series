@@ -1,21 +1,6 @@
 #include "mainwindow.h"
 
-class DateScaleDraw: public QwtScaleDraw
-{
-public:
-    DateScaleDraw( const QTime &base ):
-        baseTime( base )
-    {
-        setLabelRotation( -45.0 );
-    }
-    virtual QwtText label( double v ) const
-    {
-        return (QwtText) "Dada";
-    }
 
-private:
-    QTime baseTime;
-};
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
