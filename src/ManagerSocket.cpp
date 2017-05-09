@@ -13,6 +13,7 @@
 
 #include "ManagerSocket.h"
 #include <fstream>
+#include <tuple>
 
 ManagerSocket::ManagerSocket() {
     this->listener = socket(AF_INET, SOCK_STREAM, 0);

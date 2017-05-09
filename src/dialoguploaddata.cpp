@@ -12,6 +12,7 @@ DialogUploadData::DialogUploadData(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogUploadData)
 {
+
     addItems();
 }
 
@@ -27,11 +28,6 @@ DialogUploadData::DialogUploadData(QWidget *parent) :
 void DialogUploadData::addItems()
 {
     ui->setupUi(this);
-    ui->TypeUpload->addItem("Ссылка url");
-    ui->TypeUpload->addItem("Путь к файлу");
-    ui->TypeMaterial->addItem("Нефть");
-    ui->TypeMaterial->addItem("Газ");
-    ui->Mark->addItem("Brent");
     ui->UrlOrPath->setText("https://www.quandl.com/api/v3/datasets/CHRIS/ICE_B1.csv?api_key=A8BF6LxL-pz3f-5fZ3sy&transform=rdiff");
 }
 
@@ -55,16 +51,13 @@ DialogUploadData::~DialogUploadData()
  */
 void DialogUploadData::showing(QString url)
 {
+    model = new QStandardItemModel();
+    ui->tableView->setModel(model);
     if(url.compare("") != 0)
     {
         ui->UrlOrPath->setText(url);
     }
     this->show();
-}
-
-QStandardItemModel DialogUploadData::getModel()
-{
-    if(accept){ reutrn model;} else {return new QStandardItemModel();}
 }
 
 /**
@@ -104,10 +97,10 @@ void DialogUploadData::on_Upload_clicked()
 
 void DialogUploadData::on_buttonBox_accepted()
 {
-    this->accept = true;
+
 }
 
 void DialogUploadData::on_buttonBox_rejected()
 {
-    this->accept = false;
+
 }

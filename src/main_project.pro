@@ -23,7 +23,9 @@ SOURCES += Rconnection.cc\
     dialoguploaddata.cpp \
     ManagerSocket.cpp \
     datescaledraw.cpp \
-    ConnectorDB.cpp
+    ConnectorDB.cpp \
+    viewdata.cpp \
+    choosemenu.cpp
 
 HEADERS  += mainwindow.h \
     interactionwithnetwork.h \
@@ -37,10 +39,14 @@ HEADERS  += mainwindow.h \
     config.h \
     sisocks.h \
     Rconnection.h \
-    config.h
+    config.h \
+    viewdata.h \
+    choosemenu.h
 
 FORMS    += mainwindow.ui \
-            dialoguploaddata.ui
+            dialoguploaddata.ui \
+    viewdata.ui \
+    choosemenu.ui
 
 DISTFILES += \
     main_project.pro.user \

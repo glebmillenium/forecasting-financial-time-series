@@ -5,7 +5,9 @@
 #include <QDialog>
 #include <QStandardItemModel>
 #include <QString>
-#include <QtWidgets>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QCheckBox>
 
 namespace Ui {
 class DialogUploadData;
@@ -31,9 +33,14 @@ class DialogUploadData : public QDialog
 public:
     DialogUploadData(QWidget *parent = 0);
     ~DialogUploadData();
-    QStandardItemModel *result;
     void showing(QString url = "");
-    QStandardItemModel getModel();
+    /**
+     * @brief model
+     *   Матричный массив, связанный
+     *   в последствии с таблицей
+     *   типа QTableView
+     */
+    QStandardItemModel *model;
 
 private slots:
     void on_Upload_clicked();
@@ -52,14 +59,7 @@ private:
      */
     Ui::DialogUploadData *ui;
 
-    bool accept = false;
-    /**
-     * @brief model
-     *   Матричный массив, связанный
-     *   в последствии с таблицей
-     *   типа QTableView
-     */
-    QStandardItemModel *model;
+
 
     /**
      * @brief addItems

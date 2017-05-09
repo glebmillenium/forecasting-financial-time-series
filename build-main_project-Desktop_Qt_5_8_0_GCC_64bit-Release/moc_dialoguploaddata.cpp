@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DialogUploadData_t {
-    QByteArrayData data[3];
-    char stringdata0[36];
+    QByteArrayData data[5];
+    char stringdata0[80];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,10 +33,13 @@ static const qt_meta_stringdata_DialogUploadData_t qt_meta_stringdata_DialogUplo
     {
 QT_MOC_LITERAL(0, 0, 16), // "DialogUploadData"
 QT_MOC_LITERAL(1, 17, 17), // "on_Upload_clicked"
-QT_MOC_LITERAL(2, 35, 0) // ""
+QT_MOC_LITERAL(2, 35, 0), // ""
+QT_MOC_LITERAL(3, 36, 21), // "on_buttonBox_accepted"
+QT_MOC_LITERAL(4, 58, 21) // "on_buttonBox_rejected"
 
     },
-    "DialogUploadData\0on_Upload_clicked\0"
+    "DialogUploadData\0on_Upload_clicked\0\0"
+    "on_buttonBox_accepted\0on_buttonBox_rejected"
 };
 #undef QT_MOC_LITERAL
 
@@ -46,7 +49,7 @@ static const uint qt_meta_data_DialogUploadData[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -54,9 +57,13 @@ static const uint qt_meta_data_DialogUploadData[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x08 /* Private */,
+       1,    0,   29,    2, 0x08 /* Private */,
+       3,    0,   30,    2, 0x08 /* Private */,
+       4,    0,   31,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -69,6 +76,8 @@ void DialogUploadData::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_Upload_clicked(); break;
+        case 1: _t->on_buttonBox_accepted(); break;
+        case 2: _t->on_buttonBox_rejected(); break;
         default: ;
         }
     }
@@ -100,13 +109,13 @@ int DialogUploadData::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 3;
     }
     return _id;
 }

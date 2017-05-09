@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "viewdata.h"
 #include <QApplication>
 
 /// main.cpp
