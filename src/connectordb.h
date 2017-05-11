@@ -17,6 +17,8 @@
 #include <cstring>
 #include <vector>
 #include <string>
+#include <QString>
+#include <QStringList>
 
 #include "mysql_connection.h"
 
@@ -34,15 +36,13 @@ public:
     ConnectorDB(const ConnectorDB& orig);
     virtual ~ConnectorDB();
     
-    char* getAnswerToClient(char* condition);
-    void updateOpcode();
-    void setOpcode(int opcode);
-    char* getCurrentOpcode();
+    static char* tryConnection(char* ip, char* login, char* password, char* schema);
     char* getCommandsFromAvailaibleTable();
     char* getAllCommands();
     void setDefaultCommandsInAvailaibleTable();
     void setCommandsInAvailaibleTable(char* id_application);
     vector<string> getHistoryAction();
+    vector<tuple<int, QString>> selectTypeResource();
 private:
     sql::Driver *driver;
     sql::Connection *con;

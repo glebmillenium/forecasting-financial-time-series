@@ -41,7 +41,7 @@ ViewData::~ViewData()
     delete ui;
 }
 
-void ViewData::on_pushButton_clicked()
+/*void ViewData::on_pushButton_clicked()
 {
     float sample[model->rowCount()];
     for(int i = 0; i < model->rowCount(); i++){
@@ -51,7 +51,7 @@ void ViewData::on_pushButton_clicked()
     float* data = statistic->getTreatmentDataRecording(8);
     //qDebug() << data[0];
     NeuroNetwork *network = new NeuroNetwork(3, 1, data, statistic->getSizeSample());
-}
+}*/
 
 void ViewData::setGraphData()
 {
@@ -105,9 +105,9 @@ void ViewData::on_ButtonUploadData_clicked()
 
 void ViewData::beginSelectCombobox()
 {
-    vector<tuple<int, QString>> items = conn->selectTypeResource();
-    for(int i = 0; i < items.size(); i++)
+    vector<tuple<int, QString>> TypeResource = conn->selectTypeResource();
+    for(int i = 0; i < TypeResource.size(); i++)
     {
-        ui->TypeMaterial->addItem(std::get<1>(items[i]));
+        ui->TypeMaterial->addItem(std::get<1>(TypeResource[i]));
     }
 }

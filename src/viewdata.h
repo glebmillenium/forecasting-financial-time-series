@@ -17,6 +17,11 @@
 #include <QStringListModel>
 #include <QTableWidgetItem>
 #include "datescaledraw.h"
+#include "connectordb.h"
+#include <QString>
+#include <tuple>
+
+using namespace std;
 
 namespace Ui {
 class ViewData;
@@ -48,7 +53,12 @@ private:
     QStandardItemModel *model;
     QwtPlot *plot;
     QwtPlotCurve *curve;
+    ConnectorDB* conn;
     void setGraphData();
+    void beginSelectCombobox();
+    vector<tuple<int, QString>> TypeResource;
+    vector<tuple<int, QString>> DataResource;
+    vector<tuple<int, QString>> NeuralNetwork;
 };
 
 #endif // VIEWDATA_H

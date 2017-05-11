@@ -30,7 +30,6 @@ public:
     QLabel *statusServer;
     QLabel *statusR;
     QPushButton *viewData;
-    QPushButton *neuralNetwork;
     QPushButton *settings;
     QGroupBox *groupBox;
     QPushButton *viewForecast;
@@ -59,15 +58,12 @@ public:
         viewData = new QPushButton(ChooseMenu);
         viewData->setObjectName(QStringLiteral("viewData"));
         viewData->setGeometry(QRect(70, 140, 211, 25));
-        neuralNetwork = new QPushButton(ChooseMenu);
-        neuralNetwork->setObjectName(QStringLiteral("neuralNetwork"));
-        neuralNetwork->setGeometry(QRect(70, 180, 211, 25));
         settings = new QPushButton(ChooseMenu);
         settings->setObjectName(QStringLiteral("settings"));
         settings->setGeometry(QRect(250, 30, 89, 25));
         groupBox = new QGroupBox(ChooseMenu);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(60, 210, 231, 111));
+        groupBox->setGeometry(QRect(60, 170, 231, 111));
         viewForecast = new QPushButton(groupBox);
         viewForecast->setObjectName(QStringLiteral("viewForecast"));
         viewForecast->setGeometry(QRect(10, 70, 211, 25));
@@ -89,7 +85,6 @@ public:
         statusServer->setText(QApplication::translate("ChooseMenu", "TextLabel", Q_NULLPTR));
         statusR->setText(QApplication::translate("ChooseMenu", "TextLabel", Q_NULLPTR));
         viewData->setText(QApplication::translate("ChooseMenu", "\320\237\320\276\321\201\320\274\320\276\321\202\321\200\320\265\321\202\321\214 \320\264\320\260\320\275\320\275\321\213\320\265", Q_NULLPTR));
-        neuralNetwork->setText(QApplication::translate("ChooseMenu", "\320\235\320\260\321\201\321\202\321\200\320\276\320\270\321\202\321\214 \320\275\320\265\320\271\321\200\320\276\320\275\320\275\321\203\321\216 \321\201\320\265\321\202\321\214", Q_NULLPTR));
         settings->setText(QApplication::translate("ChooseMenu", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\270", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("ChooseMenu", "\320\237\321\200\320\276\320\263\320\275\320\276\320\267\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265", Q_NULLPTR));
         viewForecast->setText(QApplication::translate("ChooseMenu", "\320\237\320\276\321\201\320\274\320\276\321\202\321\200\320\265\321\202\321\214 \320\277\321\200\320\276\320\263\320\275\320\276\320\267\321\213", Q_NULLPTR));

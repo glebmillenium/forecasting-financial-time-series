@@ -39,7 +39,7 @@
 #include <set>
 #include <cstring>
 #include <string>
-#include "ConnectorDB.h"
+#include "connectordb.h"
 using namespace std;
 
 /**
@@ -57,7 +57,6 @@ private:
     ConnectorDB* connectorDB;
     bool exchange;
     void intellectualManage(int sock);
-    void runExchange();
     void runInteractive();
 public:
     ManagerSocket();

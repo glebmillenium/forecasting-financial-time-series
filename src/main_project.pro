@@ -21,11 +21,12 @@ SOURCES += Rconnection.cc\
     statisticalparameters.cpp \
     neuronetwork.cpp \
     dialoguploaddata.cpp \
-    ManagerSocket.cpp \
     datescaledraw.cpp \
-    ConnectorDB.cpp \
     viewdata.cpp \
-    choosemenu.cpp
+    choosemenu.cpp \
+    settings.cpp \
+    connectordb.cpp \
+    managersocket.cpp
 
 HEADERS  += mainwindow.h \
     interactionwithnetwork.h \
@@ -33,20 +34,22 @@ HEADERS  += mainwindow.h \
     neuronetwork.h \
     dialoguploaddata.h \
     Rsrv.h \
-    ManagerSocket.h \
     datescaledraw.h \
-    ConnectorDB.h \
     config.h \
     sisocks.h \
     Rconnection.h \
     config.h \
     viewdata.h \
-    choosemenu.h
+    choosemenu.h \
+    settings.h \
+    connectordb.h \
+    managersocket.h
 
 FORMS    += mainwindow.ui \
             dialoguploaddata.ui \
     viewdata.ui \
-    choosemenu.ui
+    choosemenu.ui \
+    settings.ui
 
 DISTFILES += \
     main_project.pro.user \

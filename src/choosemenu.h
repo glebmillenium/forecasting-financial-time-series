@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "viewdata.h"
+#include "settings.h"
+#include "connectordb.h"
 
 namespace Ui {
 class ChooseMenu;
@@ -19,8 +21,10 @@ public:
 private slots:
     void on_viewData_clicked();
 
+    void on_settings_clicked();
+
 private:
-    Ui::ChooseMenu *ui;
+    Ui::ChooseMenu* ui;
 };
 
 #endif // CHOOSEMENU_H

@@ -11,7 +11,7 @@
  * Created on 18 февраля 2017 г., 1:58
  */
 
-#include "ConnectorDB.h"
+#include "connectordb.h"
 
 using namespace std;
 
@@ -30,117 +30,6 @@ ConnectorDB::ConnectorDB(const ConnectorDB& orig) {
 }
 
 ConnectorDB::~ConnectorDB() {
-}
-
-char* ConnectorDB::getAnswerToClient(char* condition) {
-    char* result;
-    try {
-        sql::Statement *stmt;
-        sql::ResultSet *res;
-        char* query = new char[256];
-        sprintf(query,
-                "SELECT * FROM commands JOIN available_commands"
-                " WHERE commands.message = '%s' AND "
-                "available_commands.id_command = commands.id_command",
-                condition);
-        stmt = con->createStatement();
-        res = stmt->executeQuery(query);
-        if (!res->next()) {
-            result = (char *) "неизвестная команда";
-        } else {
-            sql::SQLString command;
-            sql::SQLString application;
-            sql::SQLString answer = res->getString("answer");
-            command = res->getString("id_command");
-            application = res->getString("start_application");
-            result = SQLStringToChar(answer);
-            string console = res->getString("console");
-            system(console.c_str());
-            sql::PreparedStatement *pstmt;
-            char* insert = new char[1024];
-            sprintf(insert,
-                    "INSERT INTO history(date, id_command)"
-                    " VALUES(%s, '%s')",
-                    getCurrentTime(), SQLStringToChar(command));
-            pstmt = con->prepareStatement(insert);
-            pstmt->executeUpdate();
-
-            stmt = con->createStatement();
-            res = stmt->executeQuery(query);
-            
-            setCommandsInAvailaibleTable(SQLStringToChar(application));
-            updateOpcode();
-        }
-        delete res;
-        delete stmt;
-    } catch (sql::SQLException &e) {
-        cout << "# ERR: SQLException in " << __FILE__;
-        cout << "# ERR: " << e.what();
-        cout << "function: " << "getAnswerToClient" << endl;
-        cout << " (MySQL error code: " << e.getErrorCode();
-        cout << ", SQLState: " << e.getSQLState() << " )" << endl;
-        result = (char *) "ошибка";
-    }
-    strcat(result, (char*) "\0");
-    return result;
-}
-
-void ConnectorDB::updateOpcode() {
-    try {
-        char* query = new char[256];
-        sprintf(query,
-                "SELECT * FROM last_update_state_system");
-        sql::Statement *stmt = con->createStatement();
-        sql::ResultSet *res = stmt->executeQuery(query);
-        res->next();
-
-        int opcode = res->getInt("opcode");
-        opcode++;
-
-
-        char* insert = new char[128];
-        sprintf(insert,
-                "UPDATE last_update_state_system"
-                " SET opcode = %d", opcode);
-        sql::PreparedStatement *pstmt;
-        pstmt = con->prepareStatement(insert);
-        pstmt->executeUpdate();
-    } catch (sql::SQLException &e) {
-        cout << "# ERR: SQLException in " << __FILE__;
-        cout << "function: " << "updateOpcode" << endl;
-        cout << "# ERR: " << e.what();
-        cout << " (MySQL error code: " << e.getErrorCode();
-        cout << ", SQLState: " << e.getSQLState() << " )" << endl;
-    }
-}
-
-char* ConnectorDB::getCurrentOpcode() {
-    char* query = new char[256];
-    sprintf(query,
-            "SELECT * FROM last_update_state_system");
-    sql::Statement *stmt = con->createStatement();
-    sql::ResultSet *res = stmt->executeQuery(query);
-    res->next();
-    return SQLStringToChar(res->getString("opcode"));
-}
-
-void ConnectorDB::setOpcode(int opcode) {
-    try {
-
-        char* insert = new char[128];
-        sprintf(insert,
-                "UPDATE last_update_state_system"
-                " SET opcode = %d", opcode);
-        sql::PreparedStatement *pstmt;
-        pstmt = con->prepareStatement(insert);
-        pstmt->executeUpdate();
-    } catch (sql::SQLException &e) {
-        cout << "# ERR: SQLException in " << __FILE__;
-        cout << "function: " << "setOpcode" << endl;
-        cout << "# ERR: " << e.what();
-        cout << " (MySQL error code: " << e.getErrorCode();
-        cout << ", SQLState: " << e.getSQLState() << " )" << endl;
-    }
 }
 
 char* ConnectorDB::getCommandsFromAvailaibleTable() {
@@ -301,4 +190,49 @@ char* ConnectorDB::getAllCommands()
         result = (char*) "";
     }
     return result;
+}
+
+vector<tuple<int, QString>> ConnectorDB::selectTypeResource()
+{
+    vector<tuple<int, QString>> result;
+    try {
+        char* query = new char[128];
+        sprintf(query, "SELECT type_resources.id_type_resources, type_resources.name_resource "
+                       "FROM type_resources");
+        sql::Statement *stmt = con->createStatement();
+        sql::ResultSet *res = stmt->executeQuery(query);
+        while (res->next()) {
+            result.push_back(std::make_tuple((int) res->getInt("id_type_resources"),
+                             QString::fromUtf8(SQLStringToChar(res->getString("name_resource")))));
+        }
+        if(result.size() == 0)
+        {
+            result.push_back(std::make_tuple(-1, ""));
+        }
+    } catch (sql::SQLException &e) {
+        cout << "# ERR: SQLException in " << __FILE__;
+        cout << "# ERR: function in getAllCommands";
+        cout << "# ERR: " << e.what();
+        cout << " (MySQL error code: " << e.getErrorCode();
+        cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+        result.clear();
+        result.push_back(std::make_tuple(-1, ""));
+    }
+    return result;
+}
+
+char* ConnectorDB::tryConnection(char* ip, char* login, char* password, char* schema)
+{
+    try {
+        sql::Driver *driver;
+        sql::Connection *con;
+        driver = get_driver_instance();
+        con = driver->connect(ip, login, password);
+        con->setSchema(schema);
+        return "Успешное соединение";
+    } catch (sql::SQLException &e) {
+        std::cout << "ERR: " << e.what();
+        cout << "constructor" << endl;
+        return "Не удалось подключиться";
+    }
 }

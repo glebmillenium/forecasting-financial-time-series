@@ -23,9 +23,15 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::DefaultContextMenu</enum>
+    </property>
     <property name="accessibleName">
      <string comment="График"/>
     </property>
@@ -101,19 +107,6 @@
        <width>441</width>
        <height>261</height>
       </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>280</y>
-       <width>191</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Создать нейронную сеть</string>
      </property>
     </widget>
     <widget class="QDateEdit" name="dateEdit">
@@ -213,7 +206,7 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>350</x>
+     <x>190</x>
      <y>10</y>
      <width>51</width>
      <height>16</height>
@@ -226,40 +219,17 @@
   <widget class="QComboBox" name="Mark">
    <property name="geometry">
     <rect>
-     <x>350</x>
+     <x>190</x>
      <y>30</y>
      <width>111</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QComboBox" name="TypeUpload">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>141</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>151</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Тип загрузки данных&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-  </widget>
   <widget class="QComboBox" name="TypeMaterial">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>10</x>
      <y>30</y>
      <width>151</width>
      <height>22</height>
@@ -269,7 +239,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>10</x>
      <y>10</y>
      <width>81</width>
      <height>16</height>

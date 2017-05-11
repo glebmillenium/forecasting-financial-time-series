@@ -37,7 +37,6 @@ public:
     QLabel *label_5;
     QWidget *tab_2;
     QTableView *tableView;
-    QPushButton *pushButton;
     QDateEdit *dateEdit;
     QPushButton *ButtonAddRow;
     QPushButton *ButtonDeleteRow;
@@ -46,8 +45,6 @@ public:
     QProgressBar *progressBar;
     QLabel *label_2;
     QComboBox *Mark;
-    QComboBox *TypeUpload;
-    QLabel *label_4;
     QComboBox *TypeMaterial;
     QLabel *label;
 
@@ -61,6 +58,8 @@ public:
         tabWidget->setGeometry(QRect(10, 70, 551, 341));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
+        tab->setEnabled(true);
+        tab->setContextMenuPolicy(Qt::DefaultContextMenu);
         widget = new QWidget(tab);
         widget->setObjectName(QStringLiteral("widget"));
         widget->setGeometry(QRect(10, 10, 521, 291));
@@ -82,9 +81,6 @@ public:
         tableView = new QTableView(tab_2);
         tableView->setObjectName(QStringLiteral("tableView"));
         tableView->setGeometry(QRect(10, 10, 441, 261));
-        pushButton = new QPushButton(tab_2);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(20, 280, 191, 22));
         dateEdit = new QDateEdit(tab_2);
         dateEdit->setObjectName(QStringLiteral("dateEdit"));
         dateEdit->setGeometry(QRect(350, 280, 85, 23));
@@ -113,26 +109,20 @@ public:
         progressBar->setTextVisible(true);
         label_2 = new QLabel(ViewData);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(350, 10, 51, 16));
+        label_2->setGeometry(QRect(190, 10, 51, 16));
         Mark = new QComboBox(ViewData);
         Mark->setObjectName(QStringLiteral("Mark"));
-        Mark->setGeometry(QRect(350, 30, 111, 22));
-        TypeUpload = new QComboBox(ViewData);
-        TypeUpload->setObjectName(QStringLiteral("TypeUpload"));
-        TypeUpload->setGeometry(QRect(10, 30, 141, 22));
-        label_4 = new QLabel(ViewData);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(10, 10, 151, 21));
+        Mark->setGeometry(QRect(190, 30, 111, 22));
         TypeMaterial = new QComboBox(ViewData);
         TypeMaterial->setObjectName(QStringLiteral("TypeMaterial"));
-        TypeMaterial->setGeometry(QRect(170, 30, 151, 22));
+        TypeMaterial->setGeometry(QRect(10, 30, 151, 22));
         label = new QLabel(ViewData);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(170, 10, 81, 16));
+        label->setGeometry(QRect(10, 10, 81, 16));
 
         retranslateUi(ViewData);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(ViewData);
@@ -147,7 +137,6 @@ public:
         label_3->setText(QApplication::translate("ViewData", "\320\236\321\201\321\214 X", Q_NULLPTR));
         label_5->setText(QApplication::translate("ViewData", "\320\236\321\201\321\214 Y", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("ViewData", "\320\223\321\200\320\260\321\204\320\270\320\272", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("ViewData", "\320\241\320\276\320\267\320\264\320\260\321\202\321\214 \320\275\320\265\320\271\321\200\320\276\320\275\320\275\321\203\321\216 \321\201\320\265\321\202\321\214", Q_NULLPTR));
         ButtonAddRow->setText(QApplication::translate("ViewData", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214", Q_NULLPTR));
         ButtonDeleteRow->setText(QApplication::translate("ViewData", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", Q_NULLPTR));
         ButtonPasteRow->setText(QApplication::translate("ViewData", "\320\222\321\201\321\202\320\260\320\262\320\270\321\202\321\214", Q_NULLPTR));
@@ -157,7 +146,6 @@ public:
 "\320\270\320\267 \320\262\320\275\320\265", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("ViewData", "\320\242\320\260\320\261\320\273\320\270\321\206\320\260", Q_NULLPTR));
         label_2->setText(QApplication::translate("ViewData", "\320\234\320\260\321\200\320\272\320\260", Q_NULLPTR));
-        label_4->setText(QApplication::translate("ViewData", "<html><head/><body><p>\320\242\320\270\320\277 \320\267\320\260\320\263\321\200\321\203\320\267\320\272\320\270 \320\264\320\260\320\275\320\275\321\213\321\205</p></body></html>", Q_NULLPTR));
         label->setText(QApplication::translate("ViewData", "\320\242\320\270\320\277 \321\201\321\213\321\200\321\214\321\217", Q_NULLPTR));
     } // retranslateUi
 
