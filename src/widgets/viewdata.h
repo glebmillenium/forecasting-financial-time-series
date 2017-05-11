@@ -2,8 +2,8 @@
 #define VIEWDATA_H
 
 #include "qdebug.h"
-#include "statisticalparameters.h"
-#include "neuronetwork.h"
+#include "../core/statisticalparameters.h"
+#include "../core/neuronetwork.h"
 #include <QMainWindow>
 #include <QWidget>
 #include <QtGui>
@@ -11,13 +11,13 @@
 #include <qwt_plot_curve.h>
 #include "qwt_scale_draw.h"
 #include "ui_mainwindow.h"
-#include "interactionwithnetwork.h"
+#include "../core/interactionwithnetwork.h"
 #include "dialoguploaddata.h"
 #include <QStandardItemModel>
 #include <QStringListModel>
 #include <QTableWidgetItem>
-#include "datescaledraw.h"
-#include "connectordb.h"
+#include "../core/datescaledraw.h"
+#include "../core/connectordb.h"
 #include <QString>
 #include <tuple>
 

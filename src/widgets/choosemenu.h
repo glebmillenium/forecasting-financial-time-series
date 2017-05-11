@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "viewdata.h"
 #include "settings.h"
-#include "connectordb.h"
+#include "../core/connectordb.h"
 
 namespace Ui {
 class ChooseMenu;

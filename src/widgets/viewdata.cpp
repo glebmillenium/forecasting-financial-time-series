@@ -111,3 +111,8 @@ void ViewData::beginSelectCombobox()
         ui->TypeMaterial->addItem(std::get<1>(TypeResource[i]));
     }
 }
+
+void ViewData::on_pushButton_clicked()
+{
+
+}

@@ -1,6 +1,6 @@
 #include "choosemenu.h"
 #include "ui_choosemenu.h"
-#include "connectordb.h"
+#include "../core/connectordb.h"
 #include <QString>
 
 ChooseMenu::ChooseMenu(QWidget *parent) :

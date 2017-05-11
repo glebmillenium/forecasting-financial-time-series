@@ -1,7 +1,7 @@
 #ifndef DIALOGUPLOADDATA_H
 #define DIALOGUPLOADDATA_H
 
-#include "interactionwithnetwork.h"
+#include "../core/interactionwithnetwork.h"
 #include <QDialog>
 #include <QStandardItemModel>
 #include <QString>

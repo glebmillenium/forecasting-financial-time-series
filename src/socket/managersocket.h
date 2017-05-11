@@ -39,7 +39,7 @@
 #include <set>
 #include <cstring>
 #include <string>
-#include "connectordb.h"
+#include "../core/connectordb.h"
 using namespace std;
 
 /**
