@@ -37,7 +37,7 @@ SOURCES += main.cpp \
     core/neuronetwork.cpp \
     core/interactionwithnetwork.cpp \
     core/datescaledraw.cpp \
-    core/connectordb.cpp
+    core/connectordb.cpp \
 
 HEADERS  += \
     widgets/viewdata.h \

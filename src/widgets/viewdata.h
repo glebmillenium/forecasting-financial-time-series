@@ -37,7 +37,6 @@ public:
     ~ViewData();
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_ButtonAddRow_clicked();
 
@@ -46,6 +45,8 @@ private slots:
     void on_ButtonDeleteRow_clicked();
 
     void on_ButtonUploadData_clicked();
+
+    void changeIndex(int index);
 
 private:
     Ui::ViewData *ui;
@@ -57,7 +58,7 @@ private:
     void setGraphData();
     void beginSelectCombobox();
     vector<tuple<int, QString>> TypeResource;
-    vector<tuple<int, QString>> DataResource;
+    vector<tuple<int, QString, QString, QString, int>> DataResource;
     vector<tuple<int, QString>> NeuralNetwork;
 };
 

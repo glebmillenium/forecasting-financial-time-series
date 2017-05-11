@@ -1,6 +1,6 @@
 #include "viewdata.h"
 #include "ui_viewdata.h"
-
+#include <QDebug>
 
 ViewData::ViewData(QWidget *parent) :
     ui(new Ui::ViewData)
@@ -24,6 +24,7 @@ ViewData::ViewData(QWidget *parent) :
     setGraphData();
     this->conn = new ConnectorDB();
     beginSelectCombobox();
+
     /*const char* fileName = "file.csv";
     const char* link =
             "https://www.quandl.com/api/v3/datasets/CHRIS/ICE_B1.csv?api_key=A8BF6LxL-pz3f-5fZ3sy&transform=rdiff";
@@ -33,25 +34,12 @@ ViewData::ViewData(QWidget *parent) :
     InteractionWithNetwork::setNameColumns(model, fileName);
     InteractionWithNetwork::fillingTable(fileName, model, this);
     */
-
 }
 
 ViewData::~ViewData()
 {
     delete ui;
 }
-
-/*void ViewData::on_pushButton_clicked()
-{
-    float sample[model->rowCount()];
-    for(int i = 0; i < model->rowCount(); i++){
-        sample[i] = model->data(model->index(i, 1),Qt::DisplayRole).toFloat();
-    }
-    StatisticalParameters *statistic = new StatisticalParameters(sample, sizeof(sample)/sizeof(float));
-    float* data = statistic->getTreatmentDataRecording(8);
-    //qDebug() << data[0];
-    NeuroNetwork *network = new NeuroNetwork(3, 1, data, statistic->getSizeSample());
-}*/
 
 void ViewData::setGraphData()
 {
@@ -105,14 +93,31 @@ void ViewData::on_ButtonUploadData_clicked()
 
 void ViewData::beginSelectCombobox()
 {
-    vector<tuple<int, QString>> TypeResource = conn->selectTypeResource();
+    this->TypeResource = conn->selectTypeResource();
     for(int i = 0; i < TypeResource.size(); i++)
     {
         ui->TypeMaterial->addItem(std::get<1>(TypeResource[i]));
     }
+
+    ui->Mark->clear();
+    int index = ui->TypeMaterial->currentIndex();
+    tuple<int, QString> getter = TypeResource[index];
+    this->DataResource = conn->selectDataResource(std::get<0>(getter));
+
+    for(int i = 0; i < DataResource.size(); i++)
+    {
+        ui->Mark->addItem(std::get<3>(DataResource[i]));
+    }
+    connect(ui->TypeMaterial, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex(int)));
 }
 
-void ViewData::on_pushButton_clicked()
+void ViewData::changeIndex(int index)
 {
-
+    ui->Mark->clear();
+    tuple<int, QString> getter = TypeResource[index];
+    this->DataResource = conn->selectDataResource(std::get<0>(getter));
+    for(int i = 0; i < DataResource.size(); i++)
+    {
+        ui->Mark->addItem(std::get<3>(DataResource[i]));
+    }
 }

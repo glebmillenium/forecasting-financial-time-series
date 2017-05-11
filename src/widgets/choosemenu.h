@@ -1,11 +1,14 @@
 #ifndef CHOOSEMENU_H
 #define CHOOSEMENU_H
 
+
 #include <QWidget>
 #include "viewdata.h"
 #include "settings.h"
 #include "../core/connectordb.h"
 
+#include <iostream>
+using std::cout;
 namespace Ui {
 class ChooseMenu;
 }
@@ -22,6 +25,8 @@ private slots:
     void on_viewData_clicked();
 
     void on_settings_clicked();
+
+    void on_retryConnect_clicked();
 
 private:
     Ui::ChooseMenu* ui;

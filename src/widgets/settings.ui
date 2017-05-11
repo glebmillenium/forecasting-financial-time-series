@@ -26,19 +26,19 @@
     <string>Настройки</string>
    </property>
   </widget>
-  <widget class="QTabWidget" name="tabWidget">
+  <widget class="QTabWidget" name="AutoUpdateData">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>40</y>
+     <y>50</y>
      <width>361</width>
      <height>181</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
-   <widget class="QWidget" name="tab">
+   <widget class="QWidget" name="NeuralNetwork">
     <property name="accessibleName">
      <string comment="График" extracomment="График"/>
     </property>
@@ -55,7 +55,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Допустимая ошибка&lt;br&gt; обучения (%)</string>
+      <string>Допустимая ошибка&lt;br&gt; обучения (%) </string>
      </property>
     </widget>
     <widget class="QLabel" name="label_5">
@@ -71,7 +71,7 @@
       <string>Тип нейронной сети</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_4">
+    <widget class="QLineEdit" name="errorLearning">
      <property name="geometry">
       <rect>
        <x>190</x>
@@ -80,8 +80,11 @@
        <height>25</height>
       </rect>
      </property>
+     <property name="text">
+      <string>5</string>
+     </property>
     </widget>
-    <widget class="QComboBox" name="comboBox">
+    <widget class="QComboBox" name="typeNeuralNetwork">
      <property name="geometry">
       <rect>
        <x>190</x>
@@ -145,14 +148,20 @@
       <string>Пароль</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="passwordDB">
      <property name="geometry">
       <rect>
        <x>120</x>
        <y>40</y>
-       <width>113</width>
+       <width>201</width>
        <height>25</height>
       </rect>
+     </property>
+     <property name="inputMethodHints">
+      <set>Qt::ImhHiddenText</set>
+     </property>
+     <property name="text">
+      <string>neural</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">
@@ -181,24 +190,153 @@
       <string>Логин</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_3">
+    <widget class="QLineEdit" name="schemeDB">
      <property name="geometry">
       <rect>
        <x>120</x>
        <y>70</y>
-       <width>113</width>
+       <width>201</width>
        <height>25</height>
       </rect>
      </property>
+     <property name="text">
+      <string>forecast_time_series</string>
+     </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="loginDB">
      <property name="geometry">
       <rect>
        <x>120</x>
        <y>10</y>
-       <width>113</width>
+       <width>201</width>
        <height>25</height>
       </rect>
+     </property>
+     <property name="text">
+      <string>neural_network</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Автоматическое обновление данных</string>
+    </attribute>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>151</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Обновление данных&lt;br&gt; через каждые:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>60</y>
+       <width>151</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Настройка неронной &lt;br&gt;сети через каждые:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="updateData">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>20</y>
+       <width>86</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>12</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>24</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="updateNeuralNetwork">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>60</y>
+       <width>86</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>3</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>12</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>24</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>30</y>
+       <width>31</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>часа</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>70</y>
+       <width>31</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>часа</string>
      </property>
     </widget>
    </widget>

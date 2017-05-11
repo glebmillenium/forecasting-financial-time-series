@@ -56,7 +56,6 @@ private:
     struct sockaddr_in addr;
     ConnectorDB* connectorDB;
     bool exchange;
-    void intellectualManage(int sock);
     void runInteractive();
 public:
     ManagerSocket();

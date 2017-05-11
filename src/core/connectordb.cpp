@@ -32,117 +32,6 @@ ConnectorDB::ConnectorDB(const ConnectorDB& orig) {
 ConnectorDB::~ConnectorDB() {
 }
 
-char* ConnectorDB::getCommandsFromAvailaibleTable() {
-
-    char* result = new char[16384];
-    strcpy(result, "");
-
-    try {
-        char* query = new char[128];
-        sql::SQLString command;
-        sprintf(query, "SELECT * FROM available_commands JOIN commands "
-                "WHERE available_commands.id_command = commands.id_command");
-        sql::Statement *stmt = con->createStatement();
-        sql::ResultSet *res = stmt->executeQuery(query);
-        while (res->next()) {
-            command = res->getString("message");
-            strcat(result, SQLStringToChar(command));
-            strcat(result, (char*) "\n");
-        }
-    } catch (sql::SQLException &e) {
-        cout << "# ERR: SQLException in " << __FILE__;
-        cout << "# ERR: function in getCommandsFromAvailaibleTable";
-        cout << "# ERR: " << e.what();
-        cout << " (MySQL error code: " << e.getErrorCode();
-        cout << ", SQLState: " << e.getSQLState() << " )" << endl;
-        result = (char*) "";
-    }
-    return result;
-}
-
-void ConnectorDB::setCommandsInAvailaibleTable(char* id_application) {
-    char* query = new char[128];
-    char* insert = new char[128];
-    sprintf(query,
-            "SELECT * FROM commands "
-            "WHERE (id_application = 1) OR (id_application = %s)", id_application);
-    sql::Statement *stmt = con->createStatement();
-    sql::ResultSet *res = stmt->executeQuery(query);
-
-    sql::SQLString command;
-    sql::PreparedStatement *pstmt;
-    pstmt = con->prepareStatement("TRUNCATE TABLE available_commands");
-    pstmt->executeUpdate();
-    int i = 0;
-    while (res->next()) {
-        command = res->getString("id_command");
-        sprintf(insert,
-                "INSERT INTO available_commands(id, id_command)"
-                " VALUES(%d, %s)", i, SQLStringToChar(command));
-        pstmt = con->prepareStatement(insert);
-        pstmt->executeUpdate();
-        i++;
-    }
-}
-
-void ConnectorDB::setDefaultCommandsInAvailaibleTable() {
-    char* query = new char[128];
-    char* insert = new char[128];
-    sprintf(query,
-            "SELECT * FROM commands "
-            "WHERE (id_application = 1)");
-    sql::Statement *stmt = con->createStatement();
-    sql::ResultSet *res = stmt->executeQuery(query);
-
-    sql::SQLString command;
-    sql::PreparedStatement *pstmt;
-    pstmt = con->prepareStatement("TRUNCATE TABLE available_commands");
-    pstmt->executeUpdate();
-    int i = 0;
-    while (res->next()) {
-        command = res->getString("id_command");
-        sprintf(insert,
-                "INSERT INTO available_commands(id, id_command)"
-                " VALUES(%d, %s)", i, SQLStringToChar(command));
-        pstmt = con->prepareStatement(insert);
-        pstmt->executeUpdate();
-        i++;
-    }
-}
-
-vector<string> ConnectorDB::getHistoryAction() {
-    vector<string> result;
-    try {
-        sql::Statement *stmt;
-        sql::ResultSet *res;
-        char* query = new char[256];
-        sprintf(query, "SELECT * "
-                "FROM history JOIN commands "
-                "WHERE history.id_command = commands.id_command");
-        stmt = con->createStatement();
-        res = stmt->executeQuery(query);
-        if (!res->next()) {
-            return result;
-        } else {
-            sql::SQLString command;
-            do {
-                command = res->getString("message");
-                string str(SQLStringToChar(command));
-                result.push_back(str);
-            } while (res->next());
-        }
-        delete res;
-        delete stmt;
-    } catch (sql::SQLException &e) {
-        cout << "# ERR: SQLException in " << __FILE__;
-        cout << "# ERR: " << e.what();
-        cout << "function: getHistoryAction " << endl;
-        cout << " (MySQL error code: " << e.getErrorCode();
-        cout << ", SQLState: " << e.getSQLState() << " )" << endl;
-    }
-    return result;
-}
-
 char* ConnectorDB::getCurrentTime() {
     char* buffer = new char[80];
     time_t seconds = time(NULL);
@@ -165,29 +54,39 @@ char* ConnectorDB::SQLStringToChar(sql::SQLString str) {
     return result;
 }
 
-char* ConnectorDB::getAllCommands()
+vector<tuple<int, QString, QString, QString, int>> ConnectorDB::selectDataResource(int id_type_resources)
 {
-    char* result = new char[16384];
-    strcpy(result, "");
-
+    vector<tuple<int, QString, QString, QString, int>> result;
     try {
-        char* query = new char[128];
-        sql::SQLString command;
-        sprintf(query, "SELECT * FROM commands ");
+        char* query = new char[256];
+        sprintf(query, "SELECT data_resources.id_data_resources, "
+                       "data_resources.url_remote,"
+                       "data_resources.path_file_contains_data, "
+                       "data_resources.name_data,"
+                       "data_resources.number_col_forecast FROM `data_resources`"
+                       "WHERE id_type_resources = %d;", id_type_resources);
         sql::Statement *stmt = con->createStatement();
         sql::ResultSet *res = stmt->executeQuery(query);
         while (res->next()) {
-            command = res->getString("message");
-            strcat(result, SQLStringToChar(command));
-            strcat(result, (char*) "\n");
+            result.push_back(std::make_tuple(
+                                 (int) res->getInt("id_data_resources"),
+                                 QString::fromUtf8(SQLStringToChar(res->getString("url_remote"))),
+                                 QString::fromUtf8(SQLStringToChar(res->getString("path_file_contains_data"))),
+                                 QString::fromUtf8(SQLStringToChar(res->getString("name_data"))),
+                                 (int) res->getInt("number_col_forecast")));
+        }
+        if(result.size() == 0)
+        {
+            result.push_back(std::make_tuple(-1, "", "", "", -1));
         }
     } catch (sql::SQLException &e) {
-        cout << "# ERR: SQLException in " << __FILE__;
-        cout << "# ERR: function in getAllCommands";
-        cout << "# ERR: " << e.what();
-        cout << " (MySQL error code: " << e.getErrorCode();
+        cout << "# ERR: SQLException in " << __FILE__ << endl;
+        cout << "# ERR: function in selectDataResource" << endl;
+        cout << "# ERR: " << e.what() << endl;
+        cout << " (MySQL error code: " << e.getErrorCode() << endl;
         cout << ", SQLState: " << e.getSQLState() << " )" << endl;
-        result = (char*) "";
+        result.clear();
+        result.push_back(std::make_tuple(-1, "", "", "", -1));
     }
     return result;
 }
@@ -221,7 +120,7 @@ vector<tuple<int, QString>> ConnectorDB::selectTypeResource()
     return result;
 }
 
-char* ConnectorDB::tryConnection(char* ip, char* login, char* password, char* schema)
+bool ConnectorDB::tryConnection(char* ip, char* login, char* password, char* schema)
 {
     try {
         sql::Driver *driver;
@@ -229,10 +128,10 @@ char* ConnectorDB::tryConnection(char* ip, char* login, char* password, char* sc
         driver = get_driver_instance();
         con = driver->connect(ip, login, password);
         con->setSchema(schema);
-        return "Успешное соединение";
+        return true;
     } catch (sql::SQLException &e) {
         std::cout << "ERR: " << e.what();
         cout << "constructor" << endl;
-        return "Не удалось подключиться";
+        return false;
     }
 }

@@ -36,13 +36,9 @@ public:
     ConnectorDB(const ConnectorDB& orig);
     virtual ~ConnectorDB();
     
-    static char* tryConnection(char* ip, char* login, char* password, char* schema);
-    char* getCommandsFromAvailaibleTable();
-    char* getAllCommands();
-    void setDefaultCommandsInAvailaibleTable();
-    void setCommandsInAvailaibleTable(char* id_application);
-    vector<string> getHistoryAction();
+    static bool tryConnection(char* ip, char* login, char* password, char* schema);
     vector<tuple<int, QString>> selectTypeResource();
+    vector<tuple<int, QString, QString, QString, int>> selectDataResource(int id_type_resources);
 private:
     sql::Driver *driver;
     sql::Connection *con;

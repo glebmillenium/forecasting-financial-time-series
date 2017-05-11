@@ -15,8 +15,10 @@ public:
     explicit Settings(QWidget *parent = 0);
     ~Settings();
 
+
 private:
     Ui::Settings *ui;
+
 };
 
 #endif // SETTINGS_H
