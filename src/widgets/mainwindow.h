@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "choosemenu.h"
+#include "settings.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,7 +18,10 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_Back_clicked();
+
+    void on_Help_triggered();
+
+    void on_Settings_triggered();
 
 private:
     Ui::MainWindow *ui;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>362</height>
+    <width>552</width>
+    <height>265</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,189 +16,263 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>40</y>
-     <width>111</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Главное меню</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>130</y>
-     <width>141</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Подключение к БД:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>160</y>
+     <x>170</x>
+     <y>10</y>
      <width>131</width>
-     <height>17</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Подключение к R:</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; text-decoration: underline;&quot;&gt;Главное меню&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
-  </widget>
-  <widget class="QLabel" name="statusDB">
-   <property name="geometry">
-    <rect>
-     <x>220</x>
-     <y>130</y>
-     <width>67</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="statusR">
-   <property name="geometry">
-    <rect>
-     <x>220</x>
-     <y>160</y>
-     <width>67</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
+   <property name="textFormat">
+    <enum>Qt::RichText</enum>
    </property>
   </widget>
   <widget class="QPushButton" name="viewData">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>190</y>
-     <width>211</width>
-     <height>25</height>
+     <x>220</x>
+     <y>70</y>
+     <width>20</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Посмотреть данные</string>
+    <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="settings">
+  <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>30</y>
-     <width>89</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Настройки</string>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBox">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>220</y>
-     <width>231</width>
-     <height>111</height>
+     <x>270</x>
+     <y>50</y>
+     <width>261</width>
+     <height>121</height>
     </rect>
    </property>
    <property name="title">
-    <string>Прогнозирование</string>
+    <string>Статус серверных соединений</string>
    </property>
-   <widget class="QPushButton" name="viewForecast">
+   <widget class="QPushButton" name="retryDB">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>70</y>
-      <width>211</width>
+      <x>200</x>
+      <y>60</y>
+      <width>21</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>Посмотреть прогнозы</string>
+     <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="createNeuralNetwork">
+   <widget class="QLabel" name="statusR">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>90</y>
+      <width>31</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>141</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Подключение к БД:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>211</width>
+      <width>131</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Статус сервера:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="statusServer">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>30</y>
+      <width>31</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>90</y>
+      <width>131</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Подключение к R:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="retryConnect">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>90</y>
+      <width>21</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>Создать нейронную сеть</string>
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="retrySocket">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>30</y>
+      <width>21</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="statusDB">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>60</y>
+      <width>31</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
-  <widget class="QPushButton" name="retryConnect">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>150</y>
-     <width>21</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>100</y>
-     <width>131</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Статус сервера:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="statusServer">
+  <widget class="QPushButton" name="viewForecast">
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>100</y>
-     <width>67</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="retrySocket">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>100</y>
-     <width>21</width>
-     <height>25</height>
+     <y>120</y>
+     <width>20</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="viewStatistic">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>230</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="viewDataSource">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>180</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>201</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Просмотр/Загрузка
+биржевых данных</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>110</y>
+     <width>171</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Просмотр/Анализ
+прогнозирования</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>170</y>
+     <width>161</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Источники биржевых 
+данных</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>220</y>
+     <width>171</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Просмотр статистики</string>
    </property>
   </widget>
  </widget>

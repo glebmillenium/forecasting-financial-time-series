@@ -24,8 +24,6 @@ public:
 private slots:
     void on_viewData_clicked();
 
-    void on_settings_clicked();
-
     void on_retryConnect_clicked();
 
     void on_viewForecast_clicked();

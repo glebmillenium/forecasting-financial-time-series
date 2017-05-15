@@ -12,16 +12,6 @@ ViewData::ViewData(QWidget *parent) :
 
     this->conn = new ConnectorDB();
     beginSelectCombobox();
-
-    /*const char* fileName = "file.csv";
-    const char* link =
-            "https://www.quandl.com/api/v3/datasets/CHRIS/ICE_B1.csv?api_key=A8BF6LxL-pz3f-5fZ3sy&transform=rdiff";
-    InteractionWithNetwork::getQuandlData(link, fileName);
-    model = new QStandardItemModel(InteractionWithNetwork::countRowsInTable(fileName),
-                                   InteractionWithNetwork::countColumnsInTable(fileName));
-    InteractionWithNetwork::setNameColumns(model, fileName);
-    InteractionWithNetwork::fillingTable(fileName, model, this);
-    */
 }
 
 ViewData::~ViewData()
@@ -42,7 +32,6 @@ void ViewData::setGraphData()
          t++;
     }
     //curve->setData(x, y, n);
-
 }
 
 void ViewData::on_ButtonAddRow_clicked()

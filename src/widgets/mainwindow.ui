@@ -24,19 +24,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="Back">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>350</y>
-      <width>89</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Назад</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -49,24 +36,36 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>Настройки</string>
+     <string>Меню</string>
     </property>
-   </widget>
-   <widget class="QMenu" name="menu_2">
-    <property name="title">
-     <string>Справка</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menu_3">
-    <property name="title">
-     <string>Выход</string>
-    </property>
+    <addaction name="Help"/>
+    <addaction name="Settings"/>
+    <addaction name="About"/>
+    <addaction name="Exit"/>
    </widget>
    <addaction name="menu"/>
-   <addaction name="menu_2"/>
-   <addaction name="menu_3"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="Help">
+   <property name="text">
+    <string>Справка</string>
+   </property>
+  </action>
+  <action name="Settings">
+   <property name="text">
+    <string>Настройки</string>
+   </property>
+  </action>
+  <action name="Exit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+  </action>
+  <action name="About">
+   <property name="text">
+    <string>О приложении</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

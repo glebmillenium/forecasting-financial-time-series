@@ -15,9 +15,23 @@ ChooseMenu::ChooseMenu(QWidget *parent) :
     ui(new Ui::ChooseMenu)
 {
     ui->setupUi(this);
+    QPixmap viewDataPixar(
+                "/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/viewData.png");
+    ui->viewData->setIcon(viewDataPixar);
+    QPixmap viewDataSourcePixar(
+                "/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/viewDataSource.png");
+    ui->viewDataSource->setIcon(viewDataSourcePixar);
+    QPixmap viewForecastPixar(
+                "/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/viewForecast.png");
+    ui->viewForecast->setIcon(viewForecastPixar);
+    QPixmap viewStatisticPixar(
+                "/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/viewStatistic.png");
+    ui->viewStatistic->setIcon(viewStatisticPixar);
+
     QIcon pix("/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/retry.png");
     ui->retryConnect->setIcon(pix);
     ui->retrySocket->setIcon(pix);
+    ui->retryDB->setIcon(pix);
     QPixmap myPixmap("/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/unsuccessfull.png");
 
     ui->statusServer->setPixmap(myPixmap);
@@ -26,9 +40,11 @@ ChooseMenu::ChooseMenu(QWidget *parent) :
     {
         QPixmap myPixmap("/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/successfull.png");
         ui->statusDB->setPixmap(myPixmap);
+        ui->retryDB->setVisible(false);
     } else {
         QPixmap myPixmap("/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/unsuccessfull.png");
         ui->statusDB->setPixmap(myPixmap);
+        ui->retryDB->setVisible(true);
     }
     Rconnection* rc = new Rconnection();
     if(!rc->connect())
@@ -56,17 +72,13 @@ void ChooseMenu::on_viewData_clicked()
     p->show();
 }
 
-void ChooseMenu::on_settings_clicked()
-{
-    Settings* p = new Settings();
-    p->show();
-}
+
 
 
 
 void ChooseMenu::on_retryConnect_clicked()
 {
-    system("sh /home/glebmillenium/repositories/forecasting-financial-time-series/src/other/start_R.sh");
+    system("R CMD Rserve --no-save");
     Rconnection* rc = new Rconnection();
     if(!rc->connect())
     {
@@ -79,10 +91,10 @@ void ChooseMenu::on_retryConnect_clicked()
         ui->statusR->setPixmap(myPixmap);
         ui->retryConnect->setVisible(true);
     }
+
 }
 
 void ChooseMenu::on_viewForecast_clicked()
 {
-    ViewForecast* p = new ViewForecast();
-    p->show();
+
 }

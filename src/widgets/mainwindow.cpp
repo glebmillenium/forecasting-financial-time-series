@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -15,8 +16,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_Back_clicked()
+
+void MainWindow::on_Help_triggered()
 {
-    ui->widget = new ChooseMenu(ui->widget);
-    ui->widget->show();
+
+}
+
+void MainWindow::on_Settings_triggered()
+{
+    Settings* p = new Settings();
+    p->show();
 }
