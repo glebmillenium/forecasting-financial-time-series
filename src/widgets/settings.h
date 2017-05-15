@@ -1,6 +1,6 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
-
+#include "core/defs.h"
 #include <QWidget>
 
 namespace Ui {
@@ -14,7 +14,6 @@ class Settings : public QWidget
 public:
     explicit Settings(QWidget *parent = 0);
     ~Settings();
-
 
 private:
     Ui::Settings *ui;

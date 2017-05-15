@@ -18,7 +18,7 @@
 ManagerSocket::ManagerSocket() {
     this->listener = socket(AF_INET, SOCK_STREAM, 0);
     this->addr.sin_family = AF_INET;
-    this->addr.sin_port = htons(5901);
+    this->addr.sin_port = htons(5800);
     this->addr.sin_addr.s_addr = INADDR_ANY;
     connectorDB = new ConnectorDB();
 }
@@ -29,29 +29,9 @@ ManagerSocket::ManagerSocket(int port) {
     this->addr.sin_port = htons(port);
     this->addr.sin_addr.s_addr = INADDR_ANY;
     connectorDB = new ConnectorDB();
-    this->exchange = false;
 }
 
-ManagerSocket::ManagerSocket(int port, bool texchange) {
-    this->listener = socket(AF_INET, SOCK_STREAM, 0);
-    this->addr.sin_family = AF_INET;
-    this->addr.sin_port = htons(port);
-    this->addr.sin_addr.s_addr = INADDR_ANY;
-    connectorDB = new ConnectorDB();
-    this->exchange = texchange;
-}
-
-ManagerSocket::ManagerSocket(int ip, int port, int sock,
-        int type_sock, int type_protocol, bool texchange) {
-    this->listener = socket(sock, type_sock, type_protocol);
-    this->addr.sin_family = sock;
-    this->addr.sin_port = htons(port);
-    this->addr.sin_addr.s_addr = ip;
-    this->exchange = texchange;
-    connectorDB = new ConnectorDB();
-}
-
-void ManagerSocket::runInteractive() {
+void ManagerSocket::run() {
     /* Простаивание потоков в ожидании коннекта ~15sec*/
     timeval timeout;
     timeout.tv_sec = 15;
@@ -61,7 +41,6 @@ void ManagerSocket::runInteractive() {
         perror("socket");
         exit(1);
     }
-
     fcntl(this->listener, F_SETFL, O_NONBLOCK);
 
     if (bind(this->listener, (struct sockaddr *) & this->addr, sizeof (this->addr)) < 0) {
@@ -111,6 +90,7 @@ void ManagerSocket::runInteractive() {
                     clients.erase(*it);
                     continue;
                 }
+
                 if (!strcmp(data_client, (char*) "--intellectual")) {
                     //intellectualManage(*it);
                 } else {
@@ -121,13 +101,3 @@ void ManagerSocket::runInteractive() {
         }
     }
 }
-
-void ManagerSocket::run() {
-
-    if (this->exchange) {
-        //runExchange();
-    } else {
-        runInteractive();
-    }
-}
-

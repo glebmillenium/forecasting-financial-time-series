@@ -33,7 +33,7 @@ class DialogUploadData : public QDialog
 public:
     DialogUploadData(QWidget *parent = 0);
     ~DialogUploadData();
-    void showing(QString url = "");
+    void showing(QString url = "", QString fileName = "file.csv");
     /**
      * @brief model
      *   Матричный массив, связанный
@@ -45,11 +45,14 @@ public:
 private slots:
     void on_Upload_clicked();
 
+
     void on_buttonBox_accepted();
 
     void on_buttonBox_rejected();
 
 private:
+    QString fileName = "file.csv";
+    void writeToFile(char* file);
     /**
      * @brief ui
      *   Указатель на элементы графического

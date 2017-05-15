@@ -1,7 +1,7 @@
-#ifndef VIEWDATA_H
-#define VIEWDATA_H
+#ifndef VIEWFORECAST_H
+#define VIEWFORECAST_H
 
-#include "qdebug.h"
+#include <QWidget>
 #include "../core/statisticalparameters.h"
 #include "../core/neuronetwork.h"
 #include <QMainWindow>
@@ -10,7 +10,6 @@
 #include <qwt_plot.h>
 #include <qwt_plot_curve.h>
 #include "qwt_scale_draw.h"
-#include "ui_mainwindow.h"
 #include "../core/interactionwithnetwork.h"
 #include "dialoguploaddata.h"
 #include <QStandardItemModel>
@@ -21,48 +20,32 @@
 #include <QString>
 #include <tuple>
 
-using namespace std;
-
 namespace Ui {
-class ViewData;
+class ViewForecast;
 }
 
-class ViewData : public QMainWindow
+class ViewForecast : public QWidget
 {
     Q_OBJECT
 
 public:
-    QStringListModel listModel;
-    explicit ViewData(QWidget *parent = 0);
-    ~ViewData();
+    explicit ViewForecast(QWidget *parent = 0);
+    ~ViewForecast();
 
 private slots:
-
-    void on_ButtonAddRow_clicked();
-
-    void on_ButtonPasteRow_clicked();
-
-    void on_ButtonDeleteRow_clicked();
-
-    void on_ButtonUploadData_clicked();
-
     void changeIndex(int index);
 
-    void changeIndex2(int index);
-
 private:
-    QMetaObject::Connection m_connection;
-    Ui::ViewData *ui;
-    DialogUploadData* upload = new DialogUploadData(this);
-    QStandardItemModel *model;
+    Ui::ViewForecast *ui;
     QwtPlot *plot;
     QwtPlotCurve *curve;
     ConnectorDB* conn;
-    void setGraphData();
-    void beginSelectCombobox();
     vector<tuple<int, QString>> TypeResource;
     vector<tuple<int, QString, QString, QString, int>> DataResource;
     vector<tuple<int, QString>> NeuralNetwork;
+
+    void setGraphData();
+    void beginSelectCombobox();
 };
 
-#endif // VIEWDATA_H
+#endif // VIEWFORECAST_H

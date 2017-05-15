@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>401</width>
-    <height>273</height>
+    <width>410</width>
+    <height>313</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,8 +31,8 @@
     <rect>
      <x>20</x>
      <y>50</y>
-     <width>361</width>
-     <height>181</height>
+     <width>371</width>
+     <height>211</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -81,7 +81,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>5</string>
+      <string/>
      </property>
     </widget>
     <widget class="QComboBox" name="typeNeuralNetwork">
@@ -161,7 +161,7 @@
       <set>Qt::ImhHiddenText</set>
      </property>
      <property name="text">
-      <string>neural</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">
@@ -200,7 +200,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>forecast_time_series</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLineEdit" name="loginDB">
@@ -213,7 +213,59 @@
       </rect>
      </property>
      <property name="text">
-      <string>neural_network</string>
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>67</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>IP host:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>67</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>port:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ipDB">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>100</y>
+       <width>201</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="portDB">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>130</y>
+       <width>201</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
@@ -344,8 +396,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>230</y>
+     <x>220</x>
+     <y>270</y>
      <width>166</width>
      <height>25</height>
     </rect>

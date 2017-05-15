@@ -28,6 +28,8 @@ private slots:
 
     void on_retryConnect_clicked();
 
+    void on_viewForecast_clicked();
+
 private:
     Ui::ChooseMenu* ui;
 };

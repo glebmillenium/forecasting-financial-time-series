@@ -82,7 +82,6 @@ void InteractionWithNetwork::fillingTable(const char* fileName,
     file.open(fileName);
     int j, i;
     size_t prev, pos;
-    std::string token;
     std::string delim = ",";   
 
     getline(file, s);
@@ -96,7 +95,8 @@ void InteractionWithNetwork::fillingTable(const char* fileName,
             pos = s.find(delim, prev);
             if (pos == string::npos) pos = s.length();
             string token = s.substr(prev, pos-prev);
-            if (!token.empty()) model->setData(index, QString::fromStdString(token));
+            if (token.empty()) token = " ";
+            model->setData(index, QString::fromStdString(token));
             prev = pos + delim.length();
             j++;
         }
