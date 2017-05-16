@@ -39,7 +39,8 @@ SOURCES += main.cpp \
     core/datescaledraw.cpp \
     core/connectordb.cpp \
     core/defs.cpp \
-    widgets/viewforecast.cpp
+    widgets/viewforecast.cpp \
+    widgets/createnetwork.cpp
 
 HEADERS  += \
     widgets/viewdata.h \
@@ -58,7 +59,8 @@ HEADERS  += \
     core/datescaledraw.h \
     core/connectordb.h \
     core/defs.h \
-    widgets/viewforecast.h
+    widgets/viewforecast.h \
+    widgets/createnetwork.h
 
 FORMS    += \
     widgets/viewdata.ui \
@@ -66,7 +68,8 @@ FORMS    += \
     widgets/mainwindow.ui \
     widgets/dialoguploaddata.ui \
     widgets/choosemenu.ui \
-    widgets/viewforecast.ui
+    widgets/viewforecast.ui \
+    widgets/createnetwork.ui
 
 unix: CONFIG += link_pkgconfig \
                 qwt

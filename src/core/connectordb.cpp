@@ -75,10 +75,6 @@ vector<tuple<int, QString, QString, QString, int>> ConnectorDB::selectDataResour
                                  QString::fromUtf8(SQLStringToChar(res->getString("name_data"))),
                                  (int) res->getInt("number_col_forecast")));
         }
-        if(result.size() == 0)
-        {
-            result.push_back(std::make_tuple(-1, "", "", "", -1));
-        }
     } catch (sql::SQLException &e) {
         cout << "# ERR: SQLException in " << __FILE__ << endl;
         cout << "# ERR: function in selectDataResource" << endl;
@@ -86,7 +82,38 @@ vector<tuple<int, QString, QString, QString, int>> ConnectorDB::selectDataResour
         cout << " (MySQL error code: " << e.getErrorCode() << endl;
         cout << ", SQLState: " << e.getSQLState() << " )" << endl;
         result.clear();
-        result.push_back(std::make_tuple(-1, "", "", "", -1));
+    }
+    return result;
+}
+
+vector<tuple<int, QString, int, int, QString>> ConnectorDB::getNeuralNetwork(int id_data_resources)
+{
+    vector<tuple<int, QString, int, int, QString>> result;
+    try {
+        char* query = new char[256];
+        sprintf(query, "SELECT neural_network.id_neural_network,"
+                       "neural_network.name_neural_network, "
+                       "neural_network.min_range,"
+                       "neural_network.max_range,"
+                       "neural_network.path_file_conatins_neural_network FROM `neural_network`"
+                       "WHERE id_data_resources = %d;", id_data_resources);
+        sql::Statement *stmt = con->createStatement();
+        sql::ResultSet *res = stmt->executeQuery(query);
+        while (res->next()) {
+            result.push_back(std::make_tuple(
+                                 (int) res->getInt("id_neural_network"),
+                                 QString::fromUtf8(SQLStringToChar(res->getString("name_neural_network"))),
+                                 (int) res->getInt("min_range"),
+                                 (int) res->getInt("max_range"),
+                                 QString::fromUtf8(SQLStringToChar(res->getString("path_file_conatins_neural_network")))));
+        }
+    } catch (sql::SQLException &e) {
+        cout << "# ERR: SQLException in " << __FILE__ << endl;
+        cout << "# ERR: function in getNeuralNetwork" << endl;
+        cout << "# ERR: " << e.what() << endl;
+        cout << " (MySQL error code: " << e.getErrorCode() << endl;
+        cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+        result.clear();
     }
     return result;
 }
@@ -104,10 +131,7 @@ vector<tuple<int, QString>> ConnectorDB::selectTypeResource()
             result.push_back(std::make_tuple((int) res->getInt("id_type_resources"),
                              QString::fromUtf8(SQLStringToChar(res->getString("name_resource")))));
         }
-        if(result.size() == 0)
-        {
-            result.push_back(std::make_tuple(-1, ""));
-        }
+
     } catch (sql::SQLException &e) {
         cout << "# ERR: SQLException in " << __FILE__;
         cout << "# ERR: function in getAllCommands";
@@ -115,7 +139,6 @@ vector<tuple<int, QString>> ConnectorDB::selectTypeResource()
         cout << " (MySQL error code: " << e.getErrorCode();
         cout << ", SQLState: " << e.getSQLState() << " )" << endl;
         result.clear();
-        result.push_back(std::make_tuple(-1, ""));
     }
     return result;
 }

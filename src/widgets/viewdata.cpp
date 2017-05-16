@@ -95,9 +95,8 @@ void ViewData::beginSelectCombobox()
 
     InteractionWithNetwork::fillingTable(fullFileName, model, this);
     ui->tableView->setModel(model);
-
-    connect(ui->TypeMaterial, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex(int)));
     m_connection = connect(ui->Mark, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex2(int)));
+    connect(ui->TypeMaterial, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex(int)));
 }
 
 void ViewData::changeIndex(int index)

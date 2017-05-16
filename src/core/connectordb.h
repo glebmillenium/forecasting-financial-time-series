@@ -39,6 +39,7 @@ public:
     static bool tryConnection(char* ip, char* login, char* password, char* schema);
     vector<tuple<int, QString>> selectTypeResource();
     vector<tuple<int, QString, QString, QString, int>> selectDataResource(int id_type_resources);
+    vector<tuple<int, QString, int, int, QString>> getNeuralNetwork(int id_data_resources);
 private:
     sql::Driver *driver;
     sql::Connection *con;

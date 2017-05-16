@@ -19,6 +19,7 @@
 #include "../core/connectordb.h"
 #include <QString>
 #include <tuple>
+#include "createnetwork.h"
 
 namespace Ui {
 class ViewForecast;
@@ -34,6 +35,10 @@ public:
 
 private slots:
     void changeIndex(int index);
+    void changeIndex2(int index);
+    void changeIndex3(int index);
+
+    void on_pushButton_clicked();
 
 private:
     Ui::ViewForecast *ui;
@@ -42,8 +47,10 @@ private:
     ConnectorDB* conn;
     vector<tuple<int, QString>> TypeResource;
     vector<tuple<int, QString, QString, QString, int>> DataResource;
-    vector<tuple<int, QString>> NeuralNetwork;
-
+    vector<tuple<int, QString, int, int, QString>> NeuralNetwork;
+    QMetaObject::Connection m_connection;
+    QMetaObject::Connection n_connection;
+    QStandardItemModel *model;
     void setGraphData();
     void beginSelectCombobox();
 };

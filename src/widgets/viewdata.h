@@ -51,9 +51,10 @@ private slots:
     void changeIndex2(int index);
 
 private:
-    QMetaObject::Connection m_connection;
+
     Ui::ViewData *ui;
     DialogUploadData* upload = new DialogUploadData(this);
+    QMetaObject::Connection m_connection;
     QStandardItemModel *model;
     QwtPlot *plot;
     QwtPlotCurve *curve;

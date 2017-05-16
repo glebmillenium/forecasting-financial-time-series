@@ -72,10 +72,6 @@ void ChooseMenu::on_viewData_clicked()
     p->show();
 }
 
-
-
-
-
 void ChooseMenu::on_retryConnect_clicked()
 {
     system("R CMD Rserve --no-save");
@@ -96,5 +92,6 @@ void ChooseMenu::on_retryConnect_clicked()
 
 void ChooseMenu::on_viewForecast_clicked()
 {
-
+    ViewForecast* p = new ViewForecast();
+    p->show();
 }
