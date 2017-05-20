@@ -6,93 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>578</width>
-    <height>492</height>
+    <width>459</width>
+    <height>494</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>81</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Тип сырья</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>10</y>
-     <width>51</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Марка</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="Mark">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>30</y>
-     <width>291</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="TypeMaterial">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>201</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>60</y>
-     <width>211</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Доступные нейронные сети</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="NeuralNetwork">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>80</y>
-     <width>201</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>120</y>
-     <width>551</width>
+     <y>140</y>
+     <width>431</width>
      <height>341</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <property name="enabled">
@@ -112,14 +43,14 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>521</width>
+       <width>381</width>
        <height>291</height>
       </rect>
      </property>
      <widget class="QComboBox" name="Asix_X">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>280</x>
         <y>20</y>
         <width>86</width>
         <height>25</height>
@@ -129,7 +60,7 @@
      <widget class="QComboBox" name="Asix_Y">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>280</x>
         <y>60</y>
         <width>86</width>
         <height>25</height>
@@ -139,7 +70,7 @@
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>230</x>
         <y>20</y>
         <width>41</width>
         <height>16</height>
@@ -152,7 +83,7 @@
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>230</x>
         <y>60</y>
         <width>41</width>
         <height>17</height>
@@ -173,7 +104,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>441</width>
+       <width>311</width>
        <height>261</height>
       </rect>
      </property>
@@ -181,50 +112,59 @@
     <widget class="QDateEdit" name="dateEdit">
      <property name="geometry">
       <rect>
-       <x>350</x>
+       <x>230</x>
        <y>280</y>
        <width>85</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="ButtonAddRow">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>20</y>
-       <width>80</width>
-       <height>22</height>
+       <x>340</x>
+       <y>10</y>
+       <width>82</width>
+       <height>89</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Добавить</string>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QPushButton" name="ButtonAddRow">
+        <property name="text">
+         <string>Добавить</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ButtonPasteRow">
+        <property name="text">
+         <string>Вставить</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ButtonDeleteRow">
+        <property name="text">
+         <string>Удалить</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
-    <widget class="QPushButton" name="ButtonDeleteRow">
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Настройка нейронной сети</string>
+    </attribute>
+    <widget class="QWidget" name="widget_2" native="true">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>80</y>
-       <width>80</width>
-       <height>22</height>
+       <x>10</x>
+       <y>10</y>
+       <width>411</width>
+       <height>291</height>
       </rect>
-     </property>
-     <property name="text">
-      <string>Удалить</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="ButtonPasteRow">
-     <property name="geometry">
-      <rect>
-       <x>460</x>
-       <y>50</y>
-       <width>80</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Вставить</string>
      </property>
     </widget>
    </widget>
@@ -232,14 +172,89 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>80</y>
+     <x>170</x>
+     <y>100</y>
      <width>201</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
     <string>Создать нейронную сеть</string>
+   </property>
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>11</x>
+     <y>71</y>
+     <width>198</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Доступные нейронные сети</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="NeuralNetwork">
+   <property name="geometry">
+    <rect>
+     <x>11</x>
+     <y>100</y>
+     <width>131</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>11</x>
+     <y>11</y>
+     <width>72</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Тип сырья</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="TypeMaterial">
+   <property name="geometry">
+    <rect>
+     <x>11</x>
+     <y>40</y>
+     <width>131</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>10</y>
+     <width>46</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Марка</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="Mark">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>40</y>
+     <width>101</width>
+     <height>25</height>
+    </rect>
    </property>
   </widget>
  </widget>

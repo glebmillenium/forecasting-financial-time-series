@@ -28,6 +28,8 @@ private slots:
 
     void on_viewForecast_clicked();
 
+    void on_retryDB_clicked();
+
 private:
     Ui::ChooseMenu* ui;
 };

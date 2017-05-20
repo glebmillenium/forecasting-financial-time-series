@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>ChooseMenu</class>
  <widget class="QWidget" name="ChooseMenu">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -60,10 +63,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>200</x>
       <y>80</y>
-      <width>21</width>
-      <height>25</height>
+      <width>20</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
@@ -141,10 +144,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>200</x>
       <y>130</y>
-      <width>21</width>
-      <height>25</height>
+      <width>20</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
@@ -157,10 +160,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>200</x>
       <y>30</y>
-      <width>21</width>
-      <height>25</height>
+      <width>20</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">

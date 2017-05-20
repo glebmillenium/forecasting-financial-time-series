@@ -10,7 +10,6 @@ ViewForecast::ViewForecast(QWidget *parent) :
 
     QDate date = QDate::currentDate();
     ui->dateEdit->setDate(date);
-
     plot = new QwtPlot(this->ui->widget);
     plot->setAxisAutoScale(QwtPlot::xBottom);
     plot->setAxisScaleDraw(QwtPlot::xBottom, new DateScaleDraw(QTime::currentTime()));
@@ -89,9 +88,13 @@ void ViewForecast::beginSelectCombobox()
                 }
                 changeIndex3(ui->NeuralNetwork->currentIndex());
                 n_connection = connect(ui->NeuralNetwork, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex3(int)));
+                p = new CreateNetwork(1, model->columnCount(), this->model, ui->widget_2);
+                ui->pushButton->setChecked(false);
+                p->close();
             }
         }
     }
+
 }
 
 void ViewForecast::changeIndex(int index)
@@ -138,6 +141,10 @@ void ViewForecast::changeIndex2(int index)
             n_connection = connect(ui->NeuralNetwork, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex3(int)));
         }
         changeIndex3(ui->NeuralNetwork->currentIndex());
+        delete p;
+        p = new CreateNetwork(1, model->columnCount(), this->model, ui->widget_2);
+        ui->pushButton->setChecked(false);
+        ui->tabWidget->setCurrentWidget(ui->tab);
         n_connection = connect(ui->NeuralNetwork, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex3(int)));
     }
 }
@@ -149,6 +156,14 @@ void ViewForecast::changeIndex3(int index)
 
 void ViewForecast::on_pushButton_clicked()
 {
-    CreateNetwork* p = new CreateNetwork();
-    p->show();
+    ui->tab_3->setHidden(false);
+    if(ui->pushButton->isChecked())
+    {
+        p->show();
+        ui->tabWidget->setCurrentWidget(ui->tab_3);
+    }
+    else
+    {
+        p->close();
+    }
 }

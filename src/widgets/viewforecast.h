@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include "../core/statisticalparameters.h"
-#include "../core/neuronetwork.h"
 #include <QMainWindow>
 #include <QWidget>
 #include <QtGui>
@@ -51,6 +50,7 @@ private:
     QMetaObject::Connection m_connection;
     QMetaObject::Connection n_connection;
     QStandardItemModel *model;
+    CreateNetwork *p;
     void setGraphData();
     void beginSelectCombobox();
 };

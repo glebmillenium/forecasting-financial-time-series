@@ -3,7 +3,6 @@
 
 #include "qdebug.h"
 #include "../core/statisticalparameters.h"
-#include "../core/neuronetwork.h"
 #include <QMainWindow>
 #include <QWidget>
 #include <QtGui>

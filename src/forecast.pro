@@ -34,13 +34,13 @@ SOURCES += main.cpp \
     socket/managersocket.cpp \
     remote_connect_RServ/Rconnection.cc \
     core/statisticalparameters.cpp \
-    core/neuronetwork.cpp \
     core/interactionwithnetwork.cpp \
     core/datescaledraw.cpp \
     core/connectordb.cpp \
     core/defs.cpp \
     widgets/viewforecast.cpp \
-    widgets/createnetwork.cpp
+    widgets/createnetwork.cpp \
+    core/formationpredictedmodel.cpp
 
 HEADERS  += \
     widgets/viewdata.h \
@@ -54,13 +54,13 @@ HEADERS  += \
     remote_connect_RServ/Rconnection.h \
     remote_connect_RServ/config.h \
     core/statisticalparameters.h \
-    core/neuronetwork.h \
     core/interactionwithnetwork.h \
     core/datescaledraw.h \
     core/connectordb.h \
     core/defs.h \
     widgets/viewforecast.h \
-    widgets/createnetwork.h
+    widgets/createnetwork.h \
+    core/formationpredictedmodel.h
 
 FORMS    += \
     widgets/viewdata.ui \

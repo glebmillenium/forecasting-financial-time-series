@@ -4,12 +4,6 @@
 #include <QString>
 #include "viewforecast.h"
 
-#define MAIN         // коcтыль из sisocks.h
-#define SOCK_ERRORS  // verbose socket errors
-
-#include "remote_connect_RServ/Rconnection.h"
-#include "remote_connect_RServ/sisocks.h"
-
 ChooseMenu::ChooseMenu(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ChooseMenu)
@@ -46,8 +40,8 @@ ChooseMenu::ChooseMenu(QWidget *parent) :
         ui->statusDB->setPixmap(myPixmap);
         ui->retryDB->setVisible(true);
     }
-    Rconnection* rc = new Rconnection();
-    if(!rc->connect())
+
+    if(StatisticalParameters::checkStateRServe())
     {
         QPixmap myPixmap("/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/successfull.png");
         ui->statusR->setPixmap(myPixmap);
@@ -75,8 +69,7 @@ void ChooseMenu::on_viewData_clicked()
 void ChooseMenu::on_retryConnect_clicked()
 {
     system("R CMD Rserve --no-save");
-    Rconnection* rc = new Rconnection();
-    if(!rc->connect())
+    if(StatisticalParameters::checkStateRServe())
     {
         QPixmap myPixmap("/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/successfull.png");
         ui->statusR->setPixmap(myPixmap);
@@ -94,4 +87,20 @@ void ChooseMenu::on_viewForecast_clicked()
 {
     ViewForecast* p = new ViewForecast();
     p->show();
+}
+
+void ChooseMenu::on_retryDB_clicked()
+{
+    system("service mysql start");
+    if(ConnectorDB::tryConnection("tcp://127.0.0.1:3306", "neural_network", "neural",
+                                  "forecast_time_series"))
+    {
+        QPixmap myPixmap("/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/successfull.png");
+        ui->statusDB->setPixmap(myPixmap);
+        ui->retryDB->setVisible(false);
+    } else {
+        QPixmap myPixmap("/home/glebmillenium/repositories/forecasting-financial-time-series/src/other/unsuccessfull.png");
+        ui->statusDB->setPixmap(myPixmap);
+        ui->retryDB->setVisible(true);
+    }
 }
