@@ -101,6 +101,20 @@ vector<float> StatisticalParameters::getScaledVectorForHyperbolicTangens()
     return result;
 }
 
+vector<float> StatisticalParameters::getScaledVectorForHyperbolicTangens_2()
+{
+    float M = getExpectedValue();
+    float sigma = this->getStandartDeviation();
+    vector<float> result;
+    float temp;
+    for(int i = 0; i < sample.size(); i++)
+    {
+        temp = (sample.at(i) - M) / (3 * sigma / (2.0 * M_PI));
+        result.push_back(1.0 / (1 + exp(-temp)));
+    }
+    return result;
+}
+
 vector<float> StatisticalParameters::getScaledVectorForHyperbolicTangens(vector<float> otherSample)
 {
     float x_min = getMinValue();
@@ -112,6 +126,8 @@ vector<float> StatisticalParameters::getScaledVectorForHyperbolicTangens(vector<
     }
     return result;
 }
+
+
 
 float StatisticalParameters::getScaledValueHyperbolicTangens(float x)
 {
@@ -139,6 +155,13 @@ float StatisticalParameters::getScaledReverseValueHyperbolicTangens(float x, flo
     float a = -1.0;
     float b = 1.0;
     return x_min + (x - a) * (x_max - x_min) / (b - a);
+}
+
+float StatisticalParameters::getScaledReverseValueHyperbolicTangens_2(float x)
+{
+    float M = getExpectedValue();
+    float sigma = this->getStandartDeviation();
+    return M + 3.0 * sigma * log(sqrt(-1.0 + 1.0 / (1.0 - x))) / M_PI;
 }
 
 int StatisticalParameters::removeOfEmissions()

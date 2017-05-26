@@ -11,14 +11,16 @@ class FormationPredictedModel
 {
 public:
     FormationPredictedModel(vector<float> dataList, double allowableLearningError,
-                            int allowedNumberMistakesInTraining = 0,
+                            fann_activationfunc_enum func = FANN_SIGMOID_SYMMETRIC, fann_train_enum train = FANN_TRAIN_RPROP,
                             char* predictedModel = "neural_network:perceptron",
                             char* method = "immersion");
     void genesisNeuralNetwork();
     vector<float> predicted(int step);
     vector<float> predicted(int step, vector<float> otherSample);
 private:
+    fann_activationfunc_enum func;
     fann_train_data* formingTrainDataForNeuralNetwork();
+    fann_train_enum train;
     //vector<fann_train_data*, fann_train_data*> dividedDataForNeuralNetworkOnParetoBreakdown(fann_train_data* data);
     tuple<vector<int>, vector<int>> getParetoData(int need_size, int max_size);
     fann_train_data* getChooseData(fann_train_data* data, vector<int> choose);

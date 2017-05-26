@@ -3,10 +3,11 @@
 
 FormationPredictedModel::FormationPredictedModel(vector<float> dataList,
                                                  double allowableLearningError,
-                                                 int allowedNumberMistakesInTraining,
+                                                 fann_activationfunc_enum func, fann_train_enum train,
                                                  char* predictedModel,
                                                  char *method)
 {
+    this->func = func;
     this->dataList = dataList;
     this->allowableLearningError = allowableLearningError;
     this->numberOfInputs = 15;
@@ -21,7 +22,7 @@ void FormationPredictedModel::genesisNeuralNetwork()
     float minimalMSETrain = 10.0, minimalMSETest = 10.0;
     int maxWindow;
     fann *formingAnn;
-    if((dataList.size() - 30) < 54) maxWindow = 30; else maxWindow = 54;
+    if((dataList.size() - 30) < 54) maxWindow = 20; else maxWindow = 54;
     for(int inputNeuron = 3; inputNeuron < maxWindow; inputNeuron ++) // max 52
     {
         this->numberOfInputs = inputNeuron;
@@ -33,7 +34,7 @@ void FormationPredictedModel::genesisNeuralNetwork()
                 (this->numberOfInputs + this->numberOfOutputs + 1) + this->numberOfOutputs;
         int L_min = ceil(minHiddenNeurons/(data->num_input + data->num_output));
         int L_max = ceil(maxHiddenNeurons/(data->num_input + data->num_output));
-        qDebug() << "Hidden min: " << L_min << " max: " << L_max;
+        //qDebug() << "Hidden min: " << L_min << " max: " << L_max;
         for(int hiddenNeuron = L_min; hiddenNeuron <= L_max; hiddenNeuron++)
         {
             this->numberOfHidden = hiddenNeuron;
@@ -49,10 +50,10 @@ void FormationPredictedModel::genesisNeuralNetwork()
             struct fann_train_data* trainData = getChooseData(data, setTrain);
             struct fann_train_data* testData = getChooseData(data, setTest);
 
-            qDebug() << "Start learning process: input: " << inputNeuron << " hidden: " << hiddenNeuron;
+            //qDebug() << "Start learning process: input: " << inputNeuron << " hidden: " << hiddenNeuron;
             float MSE_train;
             float MSE_test;
-            for(int i = 0; i < 1000; i++)
+            for(int i = 0; i < 1500; i++)
             {
                 fann_train_on_data(formingAnn, trainData, 1, 0, this->allowableLearningError);
                 MSE_train = fann_get_MSE(formingAnn);
@@ -108,7 +109,8 @@ vector<float> FormationPredictedModel::predicted(int step)
             int j = 0;
             for(int i = newData.size() - this->numberOfInputs; i < newData.size(); i++)
             {
-                input[j++] = newData.at(i);
+                input[j] = newData.at(i);
+                j++;
             }
             fann_type* answer = fann_run(ann, input);
             newData.push_back(answer[0]);
@@ -178,7 +180,7 @@ void FormationPredictedModel::setInitialStateNeuralNetwork(fann *ann)
     //fann_set_bit_fail_limit(ann, 0);//допускаемое количество ошибочных
     //fann_set_train_error_function(ann, FANN_ERRORFUNC_TANH);
     //fann_set_train_error_function(ann, FANN_ERRORFUNC_LINEAR);
-    fann_set_training_algorithm(ann, FANN_TRAIN_RPROP);
-    fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC	);
-    fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC	);
+    fann_set_training_algorithm(ann, this->train);
+    fann_set_activation_function_hidden(ann, this->func);
+    fann_set_activation_function_output(ann, this->func);
 }

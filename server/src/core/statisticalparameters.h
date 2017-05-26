@@ -22,6 +22,8 @@ public:
     static bool checkStateRServe();
     vector<float> getScaledVectorForHyperbolicTangens();
     vector<float> getScaledVectorForHyperbolicTangens(vector<float> otherSample);
+    vector<float> getScaledVectorForHyperbolicTangens_2();
+    float getScaledReverseValueHyperbolicTangens_2(float x);
     float getScaledValueHyperbolicTangens(float x);
     static float getScaledValueHyperbolicTangens(float x, float x_min, float x_max);
     float getScaledReverseValueHyperbolicTangens(float x);
