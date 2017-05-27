@@ -1,8 +1,8 @@
 #include "dialoguploaddata.h"
 #include "ui_dialoguploaddata.h"
 #include <QDebug>
-#include <iostream>
-#include <fstream>
+
+
 using namespace std;
 
 /**
@@ -32,7 +32,8 @@ DialogUploadData::DialogUploadData(QWidget *parent) :
 void DialogUploadData::addItems()
 {
     ui->setupUi(this);
-    ui->UrlOrPath->setText("https://www.quandl.com/api/v3/datasets/CHRIS/ICE_B1.csv?api_key=A8BF6LxL-pz3f-5fZ3sy&transform=rdiff");
+    ui->UrlOrPath->setText(
+                "https://www.quandl.com/api/v3/datasets/CHRIS/ICE_B1.csv?api_key=A8BF6LxL-pz3f-5fZ3sy&transform=rdiff");
 }
 
 /**
@@ -110,7 +111,8 @@ void DialogUploadData::on_buttonBox_accepted()
     ui->tableView->setModel(model);
     writeToFile("file.csv");
     char* str = new char[256];
-    sprintf(str, "mv file.csv /home/glebmillenium/repositories/%s", this->fileName.toStdString().c_str());
+
+    sprintf(str, "mv file.csv %s%s", (const char*) dataStore, this->fileName.toStdString().c_str());
     system(str);
 }
 

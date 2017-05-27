@@ -1,10 +1,5 @@
 #include "createnetwork.h"
 #include "ui_createnetwork.h"
-#include "core/formationpredictedmodel.h"
-#include "core/statisticalparameters.h"
-#include <QDebug>
-#include <vector>
-#include "time.h"
 
 CreateNetwork::CreateNetwork(int col, int maxCol, QStandardItemModel* model, QWidget *parent) :
     QWidget(parent),
@@ -17,7 +12,7 @@ CreateNetwork::CreateNetwork(int col, int maxCol, QStandardItemModel* model, QWi
         ui->comboBox->addItem(QString::number(i));
     }
     ui->comboBox->setCurrentIndex(col);
-    ui->lineEdit->setText("5");
+    ui->lineEdit->setText(std::to_string(errorLearning).c_str());
 }
 
 CreateNetwork::~CreateNetwork()
@@ -28,7 +23,6 @@ CreateNetwork::~CreateNetwork()
 void CreateNetwork::on_pushButton_clicked()
 {
     int chooseCols = ui->comboBox->currentText().toInt() - 1;
-    int size = 0;
     vector<float> ar;
     QRegExp re("\\d*\.\\d*");
     QString temp;

@@ -17,11 +17,8 @@ ViewForecast::ViewForecast(QWidget *parent) :
     curve = new QwtPlotCurve("x(y)");
     curve->setStyle(QwtPlotCurve::Lines);
     curve->setPen(QPen(Qt::blue));
-
-    curve->attach(plot);
-    plot->autoReplot();
-    setGraphData();
     this->conn = new ConnectorDB();
+
     beginSelectCombobox();
 }
 
@@ -30,20 +27,19 @@ ViewForecast::~ViewForecast()
     delete ui;
 }
 
-void ViewForecast::setGraphData()
+void ViewForecast::setGraphData(vector<double> date, vector<double> value)
 {
-    int n = 256;
+    int n = date.size();
     double x[n];
     double y[n];
-    int t = 0;
-    for(double i = -100.0; i < 100.0; i += 1.0)
+    for(int i = 0; i < n; i++)
     {
-         x[t] = i;
-         y[t] = i*i;
-         t++;
+         x[i] = date.at(i);
+         y[i] = value.at(i);
     }
-    //curve->setData(x, y, n);
-
+    curve->setSamples(x,y,n);
+    curve->attach(plot);
+    plot->replot();
 }
 
 void ViewForecast::beginSelectCombobox()
@@ -59,6 +55,7 @@ void ViewForecast::beginSelectCombobox()
         int index = ui->TypeMaterial->currentIndex();
         tuple<int, QString> getter = TypeResource[index];
         this->DataResource = conn->selectDataResource(std::get<0>(getter));
+
         if(DataResource.size() != 0)
         {
             for(int i = 0; i < DataResource.size(); i++)
@@ -68,7 +65,8 @@ void ViewForecast::beginSelectCombobox()
 
             const char* fileName = qPrintable(std::get<2>(this->DataResource[index]));
             char* fullFileName = new char[256];
-            sprintf(fullFileName, "/home/glebmillenium/repositories/%s", fileName);
+
+            sprintf(fullFileName, "%s%s", dataStore, fileName);
             int countColumns = InteractionWithNetwork::countColumnsInTable(fullFileName);
             int countRows = InteractionWithNetwork::countRowsInTable(fullFileName);
             model = new QStandardItemModel(countRows, countColumns);
@@ -76,6 +74,7 @@ void ViewForecast::beginSelectCombobox()
 
             InteractionWithNetwork::fillingTable(fullFileName, model, this);
             ui->tableView->setModel(model);
+
             m_connection = connect(ui->Mark, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex2(int)));
             connect(ui->TypeMaterial, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex(int)));
             index = ui->Mark->currentIndex();
@@ -119,7 +118,7 @@ void ViewForecast::changeIndex2(int index)
     model->clear();
     ui->NeuralNetwork->clear();
     char* fullFileName = new char[256];
-    sprintf(fullFileName, "/home/glebmillenium/repositories/%s",
+    sprintf(fullFileName, "%s%s", dataStore,
             std::get<2>(this->DataResource[index]).toStdString().c_str());
     int countRows = InteractionWithNetwork::countRowsInTable(fullFileName);
     if(countRows > -1)
@@ -142,6 +141,29 @@ void ViewForecast::changeIndex2(int index)
         }
         changeIndex3(ui->NeuralNetwork->currentIndex());
         delete p;
+
+
+        QString temp;
+        QRegExp re("\\d*\.\\d*");
+        vector<double> dateCol;
+        vector<double> ar;
+        for(int i = model->rowCount() - 1; i >= 0; i--)
+        {
+            QStringList pieces = model->item(i, 0)->text().split("-");
+            temp = model->item(i, 1)->text();
+            if(re.exactMatch(temp))
+            {
+                ar.push_back(temp.toDouble());
+                int year = QString(pieces.at(0)).toInt();
+                int month = QString(pieces.at(1)).toInt();
+                int day = QString(pieces.at(2)).toInt();
+
+                dateCol.push_back(year * 10000 + month * 100 + day);
+            }
+        }
+
+        setGraphData(dateCol, ar);
+
         p = new CreateNetwork(1, model->columnCount(), this->model, ui->widget_2);
         ui->pushButton->setChecked(false);
         ui->tabWidget->setCurrentWidget(ui->tab);
@@ -151,7 +173,7 @@ void ViewForecast::changeIndex2(int index)
 
 void ViewForecast::changeIndex3(int index)
 {
-
+    //this->NeuralNetwork[index]
 }
 
 void ViewForecast::on_pushButton_clicked()

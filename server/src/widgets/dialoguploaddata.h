@@ -8,6 +8,9 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QCheckBox>
+#include "core/defs.h"
+#include <iostream>
+#include <fstream>
 
 namespace Ui {
 class DialogUploadData;

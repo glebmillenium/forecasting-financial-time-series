@@ -23,7 +23,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 INCLUDEPATH += /usr/include/qwt /usr/include/curl
-LIBS += -L/usr/local -lcrypt -lfann -lqwt-qt5 -lmysqlcppconn
+LIBS += -L/usr/local -lcrypt -lfann -lqwt-qt5 -lmysqlcppconn -std=c++0x -pthread
 
 SOURCES += main.cpp \
     widgets/viewdata.cpp \

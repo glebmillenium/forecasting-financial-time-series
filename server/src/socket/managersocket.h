@@ -39,6 +39,7 @@
 #include <set>
 #include <cstring>
 #include <string>
+#include <QThread>
 #include "../core/connectordb.h"
 using namespace std;
 

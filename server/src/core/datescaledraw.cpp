@@ -7,5 +7,11 @@ DateScaleDraw::DateScaleDraw( const QTime &base ):
 }
 QwtText DateScaleDraw::label( double v ) const
 {
-    return (QwtText) "12.12";
+    int year = v / 10000;
+    int month = (v - year * 10000) / 100;
+    int day = v - year * 10000 - month * 100;
+    qDebug() << day;
+    char* result = new char[256];
+    sprintf(result, "%d.%d.%d", day, month, year);
+    return (QwtText) result;
 }

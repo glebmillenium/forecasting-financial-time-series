@@ -12,17 +12,17 @@
  */
 
 #include "connectordb.h"
+#include <QDebug>
 
 using namespace std;
 
 ConnectorDB::ConnectorDB() {
     try {
         driver = get_driver_instance();
-        con = driver->connect("tcp://127.0.0.1:3306", "neural_network", "neural");
-        con->setSchema("forecast_time_series");
+        con = driver->connect(connectDB, loginDB, passwordDB);
+        con->setSchema(schemeDB);
     } catch (sql::SQLException &e) {
         std::cout << "ERR: " << e.what();
-        cout << "constructor" << endl;
     }
 }
 
@@ -86,26 +86,28 @@ vector<tuple<int, QString, QString, QString, int>> ConnectorDB::selectDataResour
     return result;
 }
 
-vector<tuple<int, QString, int, int, QString>> ConnectorDB::getNeuralNetwork(int id_data_resources)
+vector<tuple<int, QString, int, int, QString, QString, QString, int, int>> ConnectorDB::getNeuralNetwork(int id_data_resources)
 {
-    vector<tuple<int, QString, int, int, QString>> result;
+    vector<tuple<int, QString, int, int, QString, QString, QString, int, int>> result;
     try {
         char* query = new char[256];
-        sprintf(query, "SELECT neural_network.id_neural_network,"
-                       "neural_network.name_neural_network, "
-                       "neural_network.min_range,"
-                       "neural_network.max_range,"
-                       "neural_network.path_file_conatins_neural_network FROM `neural_network`"
+        sprintf(query, "SELECT * FROM `neural_network`"
                        "WHERE id_data_resources = %d;", id_data_resources);
         sql::Statement *stmt = con->createStatement();
         sql::ResultSet *res = stmt->executeQuery(query);
+
         while (res->next()) {
             result.push_back(std::make_tuple(
                                  (int) res->getInt("id_neural_network"),
                                  QString::fromUtf8(SQLStringToChar(res->getString("name_neural_network"))),
-                                 (int) res->getInt("min_range"),
-                                 (int) res->getInt("max_range"),
-                                 QString::fromUtf8(SQLStringToChar(res->getString("path_file_conatins_neural_network")))));
+                                 (int) res->getInt("first_param"),
+                                 (int) res->getInt("second_param"),
+                                 QString::fromUtf8(SQLStringToChar(res->getString("path_file_contains_neural_network"))),
+                                 QString::fromUtf8(SQLStringToChar(res->getString("path_file_contains_forecast"))),
+                                 QString::fromUtf8(SQLStringToChar(res->getString("date_with_forecast"))),
+                                 (int) res->getInt("scale"),
+                                 (int) res->getInt("differential_series")
+                                 ));
         }
     } catch (sql::SQLException &e) {
         cout << "# ERR: SQLException in " << __FILE__ << endl;
@@ -154,7 +156,6 @@ bool ConnectorDB::tryConnection(char* ip, char* login, char* password, char* sch
         return true;
     } catch (sql::SQLException &e) {
         std::cout << "ERR: " << e.what();
-        cout << "constructor" << endl;
         return false;
     }
 }

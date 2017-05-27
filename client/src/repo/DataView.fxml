@@ -3,6 +3,7 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -22,7 +23,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <LineChart layoutX="21.0" layoutY="19.0" prefHeight="307.0" prefWidth="303.0">
+      <LineChart layoutX="21.0" layoutY="79.0" prefHeight="247.0" prefWidth="317.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -30,6 +31,9 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <Label layoutX="21.0" layoutY="11.0" text="Label" />
+      <Label layoutX="21.0" layoutY="11.0" text="Тип ресурса" />
+      <ComboBox fx:id="TypeResource" layoutX="21.0" layoutY="29.0" onAction="#comboBoxTypeResourceChange" prefWidth="150.0" />
+      <ComboBox fx:id="Mark" layoutX="180.0" layoutY="29.0" onAction="#comboBoxMarkChange" prefWidth="150.0" />
+      <Label layoutX="180.0" layoutY="11.0" text="Марка" />
    </children>
 </AnchorPane>

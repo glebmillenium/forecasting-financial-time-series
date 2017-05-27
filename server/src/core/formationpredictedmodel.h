@@ -12,8 +12,8 @@ class FormationPredictedModel
 public:
     FormationPredictedModel(vector<float> dataList, double allowableLearningError,
                             fann_activationfunc_enum func = FANN_SIGMOID_SYMMETRIC, fann_train_enum train = FANN_TRAIN_RPROP,
-                            char* predictedModel = "neural_network:perceptron",
-                            char* method = "immersion");
+                            char* predictedModel = (char*) "neural_network:perceptron",
+                            char* method = (char*) "immersion");
     void genesisNeuralNetwork();
     vector<float> predicted(int step);
     vector<float> predicted(int step, vector<float> otherSample);

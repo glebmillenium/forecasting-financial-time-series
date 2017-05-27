@@ -93,9 +93,6 @@ void ManagerSocket::run() {
 
                 if (!strcmp(data_client, (char*) "--intellectual")) {
                     //intellectualManage(*it);
-                } else {
-                    char* data_answer = "";// = connectorDB->getAnswerToClient(data_client);
-                    send(*it, data_answer, strlen(data_answer), 0);
                 }
             }
         }

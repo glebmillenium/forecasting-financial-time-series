@@ -3,6 +3,13 @@
 
 #include <QWidget>
 #include "qstandarditemmodel.h"
+#include "core/formationpredictedmodel.h"
+#include "core/statisticalparameters.h"
+#include "core/defs.h"
+#include <QDebug>
+#include <vector>
+#include "time.h"
+
 using namespace std;
 
 namespace Ui {

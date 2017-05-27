@@ -46,12 +46,12 @@ private:
     ConnectorDB* conn;
     vector<tuple<int, QString>> TypeResource;
     vector<tuple<int, QString, QString, QString, int>> DataResource;
-    vector<tuple<int, QString, int, int, QString>> NeuralNetwork;
+    vector<tuple<int, QString, int, int, QString, QString, QString, int, int>> NeuralNetwork;
     QMetaObject::Connection m_connection;
     QMetaObject::Connection n_connection;
     QStandardItemModel *model;
     CreateNetwork *p;
-    void setGraphData();
+    void setGraphData(vector<double> date, vector<double> values);
     void beginSelectCombobox();
 };
 

@@ -8,15 +8,23 @@ package repo;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 
 /**
  *
@@ -24,25 +32,49 @@ import javafx.scene.layout.AnchorPane;
  */
 public class MainController implements Initializable {
 
-    //private ObservableList<Person> personData = FXCollections.observableArrayList();
+    private ObservableList<Tab> Tabs = FXCollections.observableArrayList();
+    private ConnectWithRemoteManagerSocket connect;
+    @FXML
+    private Label ResultConnect;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            connect = new ConnectWithRemoteManagerSocket("127.0.0.1", 6000);
+            ResultConnect.setText("ON");
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            ResultConnect.setText("OFF");
+        }
     }
 
     @FXML
-    Pane panel;
+    private Pane SpecialPane;
 
     @FXML
-    public void tabPressClicked() {
+    private Tab SpecialTab;
+
+    @FXML
+    private TabPane SourceTabPane;
+
+    @FXML
+    public void specialTabPressClicked() {
         try {
-            // Загружаем сведения об адресатах.
-            Pane newLoadedPane = FXMLLoader.load(getClass().getResource("DataView.fxml"));
-            panel.getChildren().add(newLoadedPane);
-            // Даём контроллеру доступ к главному приложению.
+            FXMLLoader loader = new FXMLLoader();
+            Pane newLoadedPane = loader.load(getClass().getResource("DataView.fxml"));
+            SpecialPane.getChildren().add(newLoadedPane);
+            Tab tab = new Tab();
+            tab.setText("Brent");
+            HBox hbox = new HBox();
+            hbox.getChildren().add(newLoadedPane);
+            hbox.setAlignment(Pos.CENTER);
+            tab.setContent(hbox);
+            SourceTabPane.getTabs().add(SourceTabPane.getTabs().size() - 1, tab);
+            SingleSelectionModel<Tab> selectionModel = SourceTabPane.getSelectionModel();
+            selectionModel.select(tab);
+            SourceTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.SELECTED_TAB);
             //DataViewController controller = loader.getController();
             //controller.setMainApp(this);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

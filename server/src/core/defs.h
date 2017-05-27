@@ -4,10 +4,12 @@
 extern int updateData;
 extern int updateNeuralNetwork;
 extern int errorLearning;
+extern char* dataStore;
+extern char* neuralNetworkStore;
 extern char* loginDB;
 extern char* passwordDB;
 extern char* schemeDB;
-extern char* ipDB;
+extern char* connectDB;
 extern int port;
 
 #endif
