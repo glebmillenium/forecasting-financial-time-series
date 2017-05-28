@@ -91,6 +91,7 @@ bool StatisticalParameters::checkStateRServe()
 
 vector<float> StatisticalParameters::getScaledVectorForHyperbolicTangens()
 {
+    bool linear = true;
     float x_min = getMinValue();
     float x_max = getMaxValue();
     vector<float> result;
@@ -103,6 +104,7 @@ vector<float> StatisticalParameters::getScaledVectorForHyperbolicTangens()
 
 vector<float> StatisticalParameters::getScaledVectorForHyperbolicTangens_2()
 {
+    this->linear = false;
     float M = getExpectedValue();
     float sigma = this->getStandartDeviation();
     vector<float> result;

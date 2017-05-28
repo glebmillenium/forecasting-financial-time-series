@@ -28,6 +28,7 @@
 #include "cppconn/statement.h"
 #include <cppconn/prepared_statement.h>
 #include "core/defs.h"
+#include <iostream>
 
 using namespace std;
 
@@ -60,8 +61,15 @@ public:
      * @param id_data_resources
      * @return
      */
-    vector<tuple<int, QString, int, int, QString, QString, QString, int, int>> getNeuralNetwork(int id_data_resources);
+    vector<tuple<int, QString, int, int, QString, QString, QString, int, int, int>> getNeuralNetwork(int id_data_resources);
     int getFreeIdNeuralNetwork();
+    void insertToNeuralNetwork(int id_neural_network, int id_data_resources,
+                               char* name_neural_network,
+                               float first_param, float second_param,
+                               char* path_file_contains_neural_network,
+                               char* path_file_contains_forecast,
+                               const char* date_with_forecast,
+                               int scale, int differential_series, int number_col_forecast);
 private:
     sql::Driver *driver;
     sql::Connection *con;

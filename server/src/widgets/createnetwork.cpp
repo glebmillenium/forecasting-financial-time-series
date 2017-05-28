@@ -88,7 +88,7 @@ vector<double> CreateNetwork::releasePredict(int step)
     predictValues.clear();
     predictValues.push_back(currentValue);
     qDebug() << "Old value: " << currentValue;
-    for(int i = 0; i < predict.size(); i++)
+    for(unsigned int i = 0; i < predict.size(); i++)
     {
         if(linearScale)
         {
@@ -111,3 +111,4 @@ vector<double> CreateNetwork::releasePredict(int step)
     qDebug() << "----------Time: " << clock() - t << " --------";
     return this->predictValues;
 }
+

@@ -9,6 +9,7 @@ using namespace std;
 class StatisticalParameters
 {
 public:
+    bool linear;
     StatisticalParameters(vector<float> sampleFromStatistic);
     float* getTreatmentDataRecording(int classifier);
     int getSizeSample();

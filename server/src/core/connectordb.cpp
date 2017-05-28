@@ -86,9 +86,9 @@ vector<tuple<int, QString, QString, QString, int>> ConnectorDB::selectDataResour
     return result;
 }
 
-vector<tuple<int, QString, int, int, QString, QString, QString, int, int>> ConnectorDB::getNeuralNetwork(int id_data_resources)
+vector<tuple<int, QString, int, int, QString, QString, QString, int, int, int>> ConnectorDB::getNeuralNetwork(int id_data_resources)
 {
-    vector<tuple<int, QString, int, int, QString, QString, QString, int, int>> result;
+    vector<tuple<int, QString, int, int, QString, QString, QString, int, int, int>> result;
     try {
         char* query = new char[256];
         sprintf(query, "SELECT * FROM `neural_network`"
@@ -106,7 +106,8 @@ vector<tuple<int, QString, int, int, QString, QString, QString, int, int>> Conne
                                  QString::fromUtf8(SQLStringToChar(res->getString("path_file_contains_forecast"))),
                                  QString::fromUtf8(SQLStringToChar(res->getString("date_with_forecast"))),
                                  (int) res->getInt("scale"),
-                                 (int) res->getInt("differential_series")
+                                 (int) res->getInt("differential_series"),
+                                 (int) res->getInt("number_col_forecast")
                                  ));
         }
     } catch (sql::SQLException &e) {
@@ -162,15 +163,59 @@ bool ConnectorDB::tryConnection(char* ip, char* login, char* password, char* sch
 
 int ConnectorDB::getFreeIdNeuralNetwork()
 {
-    char* query = new char[128];
-    sprintf(query, "SELECT MIN(id_neural_network + 1)"
-            "FROM  `neural_network `"
-            "WHERE id_neural_network + 1 NOT "
-            "IN ("
-            "SELECT uid"
-            "FROM  `neural_network`)");
+    char* query = new char[256];
+    sprintf(query, "SELECT (`neural_network`.`id_neural_network`+1) FROM `neural_network` WHERE (	SELECT 1 FROM `neural_network` as `st` WHERE `st`.`id_neural_network` = (`neural_network`.`id_neural_network` + 1)) IS NULL ORDER BY `neural_network`.`id_neural_network` LIMIT 1");
     sql::Statement *stmt = con->createStatement();
     sql::ResultSet *res = stmt->executeQuery(query);
     res->next();
-    return (int) res->getInt(0);
+    int result = res->getInt(1);
+    return result;
+}
+
+void ConnectorDB::insertToNeuralNetwork(int id_neural_network, int id_data_resources,
+                                        char *name_neural_network, float first_param,
+                                        float second_param,
+                                        char *path_file_contains_neural_network,
+                                        char *path_file_contains_forecast,
+                                        const char *date_with_forecast,
+                                        int scale, int differential_series,
+                                        int number_col_forecast)
+{
+    try {
+        char* insert = new char[1024];
+        char* first = new char[20];
+        sprintf(first, "%f", first_param);
+        char* second = new char[20];
+        sprintf(second, "%f", second_param);
+        for(int i = 0; i < strlen(first); i++)
+        {
+            if(first[i] == ',') first[i] = '.';
+        }
+        for(int i = 0; i < strlen(second); i++)
+        {
+            if(second[i] == ',') second[i] = '.';
+        }
+        sprintf(insert,
+                "INSERT INTO neural_network(id_neural_network, "
+                "id_data_resources, "
+                "name_neural_network, "
+                "first_param, second_param, path_file_contains_neural_network, "
+                "path_file_contains_forecast, "
+                "date_with_forecast, scale, differential_series, "
+                "number_col_forecast) "
+                "VALUES(%d, %d, '%s', %s, %s, '%s', '%s', '%s', %d, %d, %d)",
+                id_neural_network, id_data_resources, name_neural_network,
+                first, second, path_file_contains_neural_network,
+                path_file_contains_forecast, date_with_forecast, scale,
+                differential_series, number_col_forecast);
+        sql::PreparedStatement *pstmt;
+        pstmt = con->prepareStatement(insert);
+        pstmt->executeUpdate();
+    } catch (sql::SQLException &e) {
+        cout << "# ERR: SQLException in " << __FILE__;
+        cout << "function: " << "insertToNeuralNetwork" << endl;
+        cout << "# ERR: " << e.what();
+        cout << " (MySQL error code: " << e.getErrorCode();
+        cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+    }
 }

@@ -19,21 +19,6 @@ ViewData::~ViewData()
     delete ui;
 }
 
-void ViewData::setGraphData()
-{
-    int n = 256;
-    double x[n];
-    double y[n];
-    int t = 0;
-    for(double i = -100.0; i < 100.0; i += 1.0)
-    {
-         x[t] = i;
-         y[t] = i*i;
-         t++;
-    }
-    //curve->setData(x, y, n);
-}
-
 void ViewData::on_ButtonAddRow_clicked()
 {
     int row = model->rowCount();

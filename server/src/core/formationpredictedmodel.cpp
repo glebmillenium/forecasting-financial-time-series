@@ -75,6 +75,16 @@ void FormationPredictedModel::genesisNeuralNetwork()
     this->ready = true;
 }
 
+fann *FormationPredictedModel::getNeuralNetwork()
+{
+    return this->ann;
+}
+
+void FormationPredictedModel::saveNeuralNetwork(const char* fileName)
+{
+    fann_save(this->ann, fileName);
+}
+
 vector<float> FormationPredictedModel::predicted(int step, vector<float> otherSample)
 {
     vector<float> predict;

@@ -39,9 +39,7 @@ private slots:
     void changeIndex(int index);
     void changeIndex2(int index);
     void changeIndex3(int index);
-
     void on_pushButton_clicked();
-
     void on_pushButton_2_clicked();
 
 private:
@@ -52,15 +50,18 @@ private:
     ConnectorDB* conn;
     vector<tuple<int, QString>> TypeResource;
     vector<tuple<int, QString, QString, QString, int>> DataResource;
-    vector<tuple<int, QString, int, int, QString, QString, QString, int, int>> NeuralNetwork;
+    vector<tuple<int, QString, int, int, QString, QString, QString, int, int, int>> NeuralNetwork;
     QMetaObject::Connection m_connection;
     QMetaObject::Connection n_connection;
     QStandardItemModel *model;
-    CreateNetwork *p;
     void setGraphData(vector<double> date, vector<double> values);
     void beginSelectCombobox();
     void setPlotter();
     void setGraphPredict(vector<double> date, vector<double> value);
+    void setForecastWidgets(int col, int maxCol);
+    vector<double> releasePredict(int step);
+    FormationPredictedModel* fpm;
+    void saveForecast(const char *path, vector<double> predict);
 };
 
 #endif // VIEWFORECAST_H

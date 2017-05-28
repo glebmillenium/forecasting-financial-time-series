@@ -35,6 +35,20 @@ ViewForecast::ViewForecast(QWidget *parent) :
     }
     setGraphData(dateCol, ar);
     ui->pushButton_2->setVisible(false);
+
+    //setForecastWidgets(int col, int maxCol);
+}
+
+void ViewForecast::setForecastWidgets(int col, int maxCol)
+{
+    for(int i = 1; i <= maxCol; i++)
+    {
+        ui->comboBox->addItem(QString::number(i));
+    }
+    ui->scale->addItem("Линейное шкалирование");
+    ui->scale->addItem("Мягкое шкалирование");
+    ui->comboBox->setCurrentIndex(col);
+    ui->lineEdit->setText(std::to_string(errorLearning).c_str());
 }
 
 double ViewForecast::fromDateToDouble(double year, double month, double day)
@@ -164,7 +178,7 @@ void ViewForecast::beginSelectCombobox()
     this->TypeResource = conn->selectTypeResource();
     if(TypeResource.size() != 0)
     {
-        for(int i = 0; i < TypeResource.size(); i++)
+        for(unsigned int i = 0; i < TypeResource.size(); i++)
         {
             ui->TypeMaterial->addItem(std::get<1>(TypeResource[i]));
         }
@@ -175,7 +189,7 @@ void ViewForecast::beginSelectCombobox()
 
         if(DataResource.size() != 0)
         {
-            for(int i = 0; i < DataResource.size(); i++)
+            for(unsigned int i = 0; i < DataResource.size(); i++)
             {
                 ui->Mark->addItem(std::get<3>(DataResource[i]));
             }
@@ -198,15 +212,15 @@ void ViewForecast::beginSelectCombobox()
             this->NeuralNetwork = conn->getNeuralNetwork(std::get<0>(this->DataResource[index]));
             if(this->NeuralNetwork.size() != 0)
             {
-                for(int i = 0; i < this->NeuralNetwork.size(); i++)
+                for(unsigned int i = 0; i < this->NeuralNetwork.size(); i++)
                 {
                     ui->NeuralNetwork->addItem(std::get<1>(this->NeuralNetwork[i]));
                 }
                 changeIndex3(ui->NeuralNetwork->currentIndex());
                 n_connection = connect(ui->NeuralNetwork, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex3(int)));
-                p = new CreateNetwork(1, model->columnCount(), this->model, ui->widget_2);
+                setForecastWidgets(1, model->columnCount());
                 ui->pushButton->setChecked(false);
-                p->close();
+                ui->widget_2->setVisible(false);
             }
         }
     }
@@ -221,7 +235,7 @@ void ViewForecast::changeIndex(int index)
     ui->Mark->clear();
     if(this->DataResource.size() != 0)
     {
-        for(int i = 0; i < DataResource.size(); i++)
+        for(unsigned int i = 0; i < DataResource.size(); i++)
         {
             ui->Mark->addItem(std::get<3>(DataResource[i]));
         }
@@ -256,10 +270,11 @@ void ViewForecast::changeIndex2(int index)
                 ui->NeuralNetwork->addItem(std::get<1>(this->NeuralNetwork[i]));
             }
             changeIndex3(ui->NeuralNetwork->currentIndex());
-            n_connection = connect(ui->NeuralNetwork, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex3(int)));
+            n_connection = connect(ui->NeuralNetwork, SIGNAL(currentIndexChanged(int)),
+                                   SLOT(changeIndex3(int)));
         }
         changeIndex3(ui->NeuralNetwork->currentIndex());
-        delete p;
+        ui->widget_2->setVisible(false);
         QString temp;
         QRegExp re("\\d*\.\\d*");
         vector<double> dateCol;
@@ -279,17 +294,20 @@ void ViewForecast::changeIndex2(int index)
             }
         }
         setGraphData(dateCol, ar);
-        p = new CreateNetwork(1, model->columnCount(), this->model, ui->widget_2);
+        setForecastWidgets(1, model->columnCount());
+        ui->pushButton->setChecked(false);
+        ui->widget_2->setVisible(false);
         ui->pushButton->setChecked(false);
         ui->tabWidget->setCurrentWidget(ui->tab);
 
-        n_connection = connect(ui->NeuralNetwork, SIGNAL(currentIndexChanged(int)), SLOT(changeIndex3(int)));
+        n_connection = connect(ui->NeuralNetwork, SIGNAL(currentIndexChanged(int)),
+                               SLOT(changeIndex3(int)));
     }
 }
 
 void ViewForecast::changeIndex3(int index)
 {
-    //this->NeuralNetwork[index]
+    this->NeuralNetwork[index];
 }
 
 void ViewForecast::on_pushButton_clicked()
@@ -297,13 +315,13 @@ void ViewForecast::on_pushButton_clicked()
     ui->tab_3->setHidden(false);
     if(ui->pushButton->isChecked())
     {
-        p->show();
+        ui->widget_2->show();
         ui->tabWidget->setCurrentWidget(ui->tab_3);
         ui->pushButton_2->setVisible(true);
     }
     else
     {
-        p->close();
+        ui->widget_2->close();
         ui->pushButton_2->setVisible(false);
     }
 }
@@ -321,8 +339,134 @@ void ViewForecast::on_pushButton_2_clicked()
     {
         date.push_back(year * 100 + (100 * (30.4 * month + day + i) / 366.0001));
     }
-    vector<double> predict = p->releasePredict(7);
+    vector<double> predict = releasePredict(7);
     setGraphPredict(date, predict);
-    char* namePredictFile = std::to_string(conn->getFreeIdNeuralNetwork()).c_str();
+    char* pathToNeuralNetwork =  new char[256];
+    sprintf(pathToNeuralNetwork , "%s%s.fann", neuralNetworkStore,
+            std::to_string(conn->getFreeIdNeuralNetwork()).c_str());
+    fpm->saveNeuralNetwork((const char*) pathToNeuralNetwork );
+    char* pathToForecast =  new char[256];
+    int freeId = conn->getFreeIdNeuralNetwork();
+    sprintf(pathToForecast , "%s%s.forecast", dataStore,
+            std::to_string(freeId).c_str());
+    saveForecast(pathToForecast, predict);
+    ui->listPredict->clear();
+    char* item = new char[256];
+    for(unsigned int i = 0; i < predict.size(); i++)
+    {
+        sprintf(item, "%s+%d | %.2f", model->item(0, 0)->text().toStdString().c_str(),
+                i,
+                predict.at(i));
+        ui->listPredict->addItem(QString::fromUtf8(item));
+    }
+
+    conn->insertToNeuralNetwork(freeId,
+                                std::get<0>(this->DataResource.at(ui->Mark->currentIndex())),
+                                "perceptron neural network",
+                                0, 0,
+                                pathToNeuralNetwork, pathToForecast,
+                                model->item(0, 0)->text().toStdString().c_str(), 0, 0, 1);
     //this->NeuralNetwork[index];
+
+}
+
+vector<double> ViewForecast::releasePredict(int step)
+{
+    bool DS = false;
+    bool emissions = false;
+    bool linearScale = true;
+    if(ui->DS->isChecked()) DS = true;
+    if(ui->emissions->isChecked()) emissions = true;
+    if(ui->scale->currentIndex() == 1) linearScale = false;
+    int chooseCols = ui->comboBox->currentText().toInt() - 1;
+
+    vector<float> ar;
+    QRegExp re("\\d*\.\\d*");
+    QString temp;
+    for(int i = this->model->rowCount() - 1; i >= 0; i--)
+    {
+        temp = model->item(i, chooseCols)->text();
+        if(re.exactMatch(temp))
+        {
+            ar.push_back(temp.toFloat());
+        }
+    }
+    float lastValue = ar.at(ar.size() - 1);
+    float delta;
+    int t;
+    float currentValue;
+    vector<float> scaledVector;
+    vector<float> predict;
+
+    StatisticalParameters* sp;
+    if(DS)
+    {
+        ar = StatisticalParameters::getDifferentionSeries(ar);
+    }
+    currentValue = lastValue;
+    sp = new StatisticalParameters(ar);
+    if(linearScale)
+    {
+        scaledVector = sp->getScaledVectorForHyperbolicTangens();
+    }
+    else
+    {
+        scaledVector = sp->getScaledVectorForHyperbolicTangens_2();
+    }
+    if(emissions)
+    {
+        //sp->removeOfEmissions();
+    }
+    t=clock();
+    if(linearScale)
+    {
+        fpm = new FormationPredictedModel(scaledVector, 0.0, FANN_SIGMOID_SYMMETRIC, FANN_TRAIN_RPROP);
+    }
+    else
+    {
+        fpm = new FormationPredictedModel(scaledVector, 0.0, FANN_SIGMOID, FANN_TRAIN_RPROP);
+    }
+    fpm->genesisNeuralNetwork();
+    predict = fpm->predicted(7);
+    vector<double> predictValues;
+    predictValues.push_back(currentValue);
+    qDebug() << "Old value: " << currentValue;
+    for(unsigned int i = 0; i < predict.size(); i++)
+    {
+        if(linearScale)
+        {
+            delta = sp->getScaledReverseValueHyperbolicTangens(predict.at(i));
+        }
+        else
+        {
+            delta = sp->getScaledReverseValueHyperbolicTangens_2(predict.at(i));
+        }
+        if(DS)
+        {
+            currentValue += delta;
+        } else
+        {
+            currentValue = delta;
+        }
+        predictValues.push_back(currentValue);
+        qDebug() << "value: " << currentValue;
+    }
+
+    qDebug() << "----------Time: " << clock() - t << " --------";
+    return predictValues;
+}
+
+void ViewForecast::saveForecast(const char* path, vector<double> predict)
+{
+    fstream out;
+    out.open(path, ios::out);
+    for(unsigned int i = 0; i < predict.size(); i++)
+    {
+        out << predict.at(i);
+        if(i != (predict.size() - 1))
+        {
+            out << "\n";
+        }
+    }
+    out.close();
 }

@@ -105,3 +105,4 @@ void InteractionWithNetwork::fillingTable(const char* fileName,
     }
     file.close();
 }
+

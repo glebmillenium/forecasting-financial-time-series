@@ -15,8 +15,10 @@ public:
                             char* predictedModel = (char*) "neural_network:perceptron",
                             char* method = (char*) "immersion");
     void genesisNeuralNetwork();
+    fann* getNeuralNetwork();
     vector<float> predicted(int step);
     vector<float> predicted(int step, vector<float> otherSample);
+    void saveNeuralNetwork(const char *fileName);
 private:
     fann_activationfunc_enum func;
     fann_train_data* formingTrainDataForNeuralNetwork();
