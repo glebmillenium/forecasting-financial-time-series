@@ -62,6 +62,7 @@ private:
     vector<double> releasePredict(int step);
     FormationPredictedModel* fpm;
     void saveForecast(const char *path, vector<double> predict);
+    vector<double> getForecast(const char *pathForecast);
 };
 
 #endif // VIEWFORECAST_H

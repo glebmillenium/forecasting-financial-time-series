@@ -35,7 +35,7 @@ ViewForecast::ViewForecast(QWidget *parent) :
     }
     setGraphData(dateCol, ar);
     ui->pushButton_2->setVisible(false);
-
+    ui->tabWidget->setCurrentWidget(ui->tab);
     //setForecastWidgets(int col, int maxCol);
 }
 
@@ -229,9 +229,9 @@ void ViewForecast::beginSelectCombobox()
 
 void ViewForecast::changeIndex(int index)
 {
+    QObject::disconnect(m_connection);
     tuple<int, QString> getter = TypeResource[index];
     this->DataResource = conn->selectDataResource(std::get<0>(getter));
-    QObject::disconnect(m_connection);
     ui->Mark->clear();
     if(this->DataResource.size() != 0)
     {
@@ -246,16 +246,25 @@ void ViewForecast::changeIndex(int index)
 
 void ViewForecast::changeIndex2(int index)
 {
+    QObject::disconnect(n_connection);
+
+    QVector<double> m_vctTime;
+    QVector<double> m_vctValue;
+    m_vctTime.clear();
+    m_vctValue.clear();
+    curve->setSamples(m_vctTime,m_vctValue);
+    curvePredict->setSamples(m_vctTime,m_vctValue);
+    plot_data->replot();
+
     model->clear();
     ui->NeuralNetwork->clear();
     char* fullFileName = new char[256];
     sprintf(fullFileName, "%s%s", dataStore,
             std::get<2>(this->DataResource[index]).toStdString().c_str());
     int countRows = InteractionWithNetwork::countRowsInTable(fullFileName);
+
     if(countRows > -1)
     {
-        QObject::disconnect(n_connection);
-
         int countColumns = InteractionWithNetwork::countColumnsInTable(fullFileName);
         model = new QStandardItemModel(countRows, countColumns);
         InteractionWithNetwork::setNameColumns(model, fullFileName);
@@ -265,6 +274,7 @@ void ViewForecast::changeIndex2(int index)
         this->NeuralNetwork = conn->getNeuralNetwork(std::get<0>(this->DataResource[index]));
         if(this->NeuralNetwork.size() != 0)
         {
+            ui->NeuralNetwork->clear();
             for(int i = 0; i < this->NeuralNetwork.size(); i++)
             {
                 ui->NeuralNetwork->addItem(std::get<1>(this->NeuralNetwork[i]));
@@ -273,8 +283,7 @@ void ViewForecast::changeIndex2(int index)
             n_connection = connect(ui->NeuralNetwork, SIGNAL(currentIndexChanged(int)),
                                    SLOT(changeIndex3(int)));
         }
-        changeIndex3(ui->NeuralNetwork->currentIndex());
-        ui->widget_2->setVisible(false);
+
         QString temp;
         QRegExp re("\\d*\.\\d*");
         vector<double> dateCol;
@@ -294,20 +303,57 @@ void ViewForecast::changeIndex2(int index)
             }
         }
         setGraphData(dateCol, ar);
+
+        ui->widget_2->setVisible(false);
         setForecastWidgets(1, model->columnCount());
         ui->pushButton->setChecked(false);
         ui->widget_2->setVisible(false);
         ui->pushButton->setChecked(false);
         ui->tabWidget->setCurrentWidget(ui->tab);
-
-        n_connection = connect(ui->NeuralNetwork, SIGNAL(currentIndexChanged(int)),
-                               SLOT(changeIndex3(int)));
     }
 }
 
 void ViewForecast::changeIndex3(int index)
 {
-    this->NeuralNetwork[index];
+    QVector<double> m_vctTime;
+    QVector<double> m_vctValue;
+    m_vctTime.clear();
+    m_vctValue.clear();
+    curvePredict->setSamples(m_vctTime,m_vctValue);
+    plot_data->replot();
+
+    if(NeuralNetwork.size() > 0)
+    {
+        QString pathForecast = std::get<5>(this->NeuralNetwork[index]);
+        QString dateLast = std::get<6>(this->NeuralNetwork[index]);
+        vector<double> predict = getForecast(pathForecast.toStdString().c_str());
+        ui->listPredict->clear();
+        char* item = new char[256];
+        for(unsigned int i = 0; i < predict.size(); i++)
+        {
+            sprintf(item, "%s+%d | %.2f", dateLast.toStdString().c_str(),
+                    i,
+                    predict.at(i));
+            ui->listPredict->addItem(QString::fromUtf8(item));
+        }
+
+        QStringList pieces = dateLast.split("-");
+        if(pieces.size() == 3)
+        {
+            double year = QString(pieces.at(0)).toDouble();
+            double month = QString(pieces.at(1)).toDouble();
+            month--;
+            double day = QString(pieces.at(2)).toDouble();
+            vector<double> date;
+            date.push_back(year * 100 + (100 * (30.4 * month + day) / 366.0001));
+            for(int i = 1; i <= 7; i++)
+            {
+                date.push_back(year * 100 + (100 * (30.4 * month + day + i) / 366.0001));
+            }
+
+            setGraphPredict(date, predict);
+        }
+    }
 }
 
 void ViewForecast::on_pushButton_clicked()
@@ -366,8 +412,6 @@ void ViewForecast::on_pushButton_2_clicked()
                                 0, 0,
                                 pathToNeuralNetwork, pathToForecast,
                                 model->item(0, 0)->text().toStdString().c_str(), 0, 0, 1);
-    //this->NeuralNetwork[index];
-
 }
 
 vector<double> ViewForecast::releasePredict(int step)
@@ -469,4 +513,20 @@ void ViewForecast::saveForecast(const char* path, vector<double> predict)
         }
     }
     out.close();
+}
+
+vector<double> ViewForecast::getForecast(const char* pathForecast)
+{
+    vector<double> result;
+    string line;
+    ifstream myfile(pathForecast);
+    if (myfile.is_open())
+    {
+        while (getline(myfile,line) )
+        {
+            result.push_back(atof(line.c_str()));
+        }
+        myfile.close();
+    }
+    return result;
 }
