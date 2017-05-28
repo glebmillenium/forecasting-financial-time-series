@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>459</width>
-    <height>494</height>
+    <width>571</width>
+    <height>552</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,12 +18,12 @@
     <rect>
      <x>10</x>
      <y>140</y>
-     <width>431</width>
-     <height>341</height>
+     <width>531</width>
+     <height>401</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab">
     <property name="enabled">
@@ -43,56 +43,16 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>381</width>
-       <height>291</height>
+       <width>500</width>
+       <height>350</height>
       </rect>
      </property>
-     <widget class="QComboBox" name="Asix_X">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>20</y>
-        <width>86</width>
-        <height>25</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="Asix_Y">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>60</y>
-        <width>86</width>
-        <height>25</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>20</y>
-        <width>41</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Ось X</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_5">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>60</y>
-        <width>41</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Ось Y</string>
-      </property>
-     </widget>
+     <property name="minimumSize">
+      <size>
+       <width>500</width>
+       <height>350</height>
+      </size>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
@@ -104,53 +64,59 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>311</width>
-       <height>261</height>
+       <width>391</width>
+       <height>301</height>
       </rect>
      </property>
     </widget>
     <widget class="QDateEdit" name="dateEdit">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>280</y>
+       <x>320</x>
+       <y>330</y>
        <width>85</width>
        <height>23</height>
       </rect>
      </property>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QPushButton" name="ButtonDeleteRow">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>10</y>
-       <width>82</width>
-       <height>89</height>
+       <x>420</x>
+       <y>71</y>
+       <width>80</width>
+       <height>25</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <item>
-       <widget class="QPushButton" name="ButtonAddRow">
-        <property name="text">
-         <string>Добавить</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="ButtonPasteRow">
-        <property name="text">
-         <string>Вставить</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="ButtonDeleteRow">
-        <property name="text">
-         <string>Удалить</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <property name="text">
+      <string>Удалить</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ButtonAddRow">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>9</y>
+       <width>80</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Добавить</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ButtonPasteRow">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>40</y>
+       <width>80</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Вставить</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_3">
@@ -162,9 +128,22 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>411</width>
-       <height>291</height>
+       <width>500</width>
+       <height>301</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>330</y>
+       <width>251</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Сформировать нейронную сеть</string>
      </property>
     </widget>
    </widget>

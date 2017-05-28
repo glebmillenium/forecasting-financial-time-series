@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>431</width>
-    <height>275</height>
+    <width>500</width>
+    <height>280</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QCheckBox" name="checkBox">
+  <widget class="QCheckBox" name="DS">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>60</y>
+     <x>310</x>
+     <y>50</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -30,8 +30,8 @@
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>20</y>
+     <x>310</x>
+     <y>10</y>
      <width>51</width>
      <height>25</height>
     </rect>
@@ -67,11 +67,11 @@
 разностному виду (DS)</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_2">
+  <widget class="QCheckBox" name="emissions">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>130</y>
+     <x>310</x>
+     <y>120</y>
      <width>181</width>
      <height>21</height>
     </rect>
@@ -83,8 +83,8 @@
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>190</y>
+     <x>310</x>
+     <y>240</y>
      <width>113</width>
      <height>25</height>
     </rect>
@@ -94,26 +94,13 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>180</y>
+     <y>230</y>
      <width>191</width>
      <height>41</height>
     </rect>
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Допустимая погрешность&lt;br&gt;при обучении (%)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>230</y>
-     <width>251</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Сформировать нейронную сеть</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -129,6 +116,29 @@
     <string>Сгладить временной ряд
 для повышения качества
 прогнозирования</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>190</y>
+     <width>191</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Тип масштабирования</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="scale">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>190</y>
+     <width>131</width>
+     <height>25</height>
+    </rect>
    </property>
   </widget>
  </widget>

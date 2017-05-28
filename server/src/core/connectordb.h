@@ -61,6 +61,7 @@ public:
      * @return
      */
     vector<tuple<int, QString, int, int, QString, QString, QString, int, int>> getNeuralNetwork(int id_data_resources);
+    int getFreeIdNeuralNetwork();
 private:
     sql::Driver *driver;
     sql::Connection *con;

@@ -23,11 +23,11 @@ class CreateNetwork : public QWidget
 public:
     explicit CreateNetwork(int col, int maxCol, QStandardItemModel* model, QWidget *parent = 0);
     ~CreateNetwork();
-
-private slots:
-    void on_pushButton_clicked();
+    vector<double> getPredict();
+    vector<double> releasePredict(int step);
 
 private:
+    vector<double> predictValues;
     Ui::CreateNetwork *ui;
     QStandardItemModel* model;
 };

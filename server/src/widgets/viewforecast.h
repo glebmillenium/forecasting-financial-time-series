@@ -4,11 +4,13 @@
 #include <QWidget>
 #include "../core/statisticalparameters.h"
 #include <QMainWindow>
-#include <QWidget>
 #include <QtGui>
 #include <qwt_plot.h>
 #include <qwt_plot_curve.h>
 #include "qwt_scale_draw.h"
+#include "qwt_plot_grid.h"
+#include "qwt_legend.h"
+#include <qwt_symbol.h>
 #include "../core/interactionwithnetwork.h"
 #include "dialoguploaddata.h"
 #include <QStandardItemModel>
@@ -32,6 +34,7 @@ public:
     explicit ViewForecast(QWidget *parent = 0);
     ~ViewForecast();
 
+    static double fromDateToDouble(double year, double month, double day);
 private slots:
     void changeIndex(int index);
     void changeIndex2(int index);
@@ -39,10 +42,13 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::ViewForecast *ui;
-    QwtPlot *plot;
+    QwtPlot *plot_data;
     QwtPlotCurve *curve;
+    QwtPlotCurve *curvePredict;
     ConnectorDB* conn;
     vector<tuple<int, QString>> TypeResource;
     vector<tuple<int, QString, QString, QString, int>> DataResource;
@@ -53,6 +59,8 @@ private:
     CreateNetwork *p;
     void setGraphData(vector<double> date, vector<double> values);
     void beginSelectCombobox();
+    void setPlotter();
+    void setGraphPredict(vector<double> date, vector<double> value);
 };
 
 #endif // VIEWFORECAST_H

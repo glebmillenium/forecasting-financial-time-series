@@ -11,6 +11,8 @@ CreateNetwork::CreateNetwork(int col, int maxCol, QStandardItemModel* model, QWi
     {
         ui->comboBox->addItem(QString::number(i));
     }
+    ui->scale->addItem("Линейное шкалирование");
+    ui->scale->addItem("Мягкое шкалирование");
     ui->comboBox->setCurrentIndex(col);
     ui->lineEdit->setText(std::to_string(errorLearning).c_str());
 }
@@ -20,9 +22,21 @@ CreateNetwork::~CreateNetwork()
     delete ui;
 }
 
-void CreateNetwork::on_pushButton_clicked()
+vector<double> CreateNetwork::getPredict()
 {
+    return this->predictValues;
+}
+
+vector<double> CreateNetwork::releasePredict(int step)
+{
+    bool DS = false;
+    bool emissions = false;
+    bool linearScale = true;
+    if(ui->DS->isChecked()) DS = true;
+    if(ui->emissions->isChecked()) emissions = true;
+    if(ui->scale->currentIndex() == 1) linearScale = false;
     int chooseCols = ui->comboBox->currentText().toInt() - 1;
+
     vector<float> ar;
     QRegExp re("\\d*\.\\d*");
     QString temp;
@@ -42,95 +56,58 @@ void CreateNetwork::on_pushButton_clicked()
     vector<float> predict;
     FormationPredictedModel* fpm;
     StatisticalParameters* sp;
-    //ar = StatisticalParameters::getDifferentionSeries(ar);
-
-
-    t=clock();
+    if(DS)
+    {
+        ar = StatisticalParameters::getDifferentionSeries(ar);
+    }
     currentValue = lastValue;
     sp = new StatisticalParameters(ar);
-    scaledVector = sp->getScaledVectorForHyperbolicTangens();
-    //sp->removeOfEmissions();
-    fpm = new FormationPredictedModel(scaledVector, 0.0, FANN_SIGMOID_SYMMETRIC, FANN_TRAIN_RPROP);
+    if(linearScale)
+    {
+        scaledVector = sp->getScaledVectorForHyperbolicTangens();
+    }
+    else
+    {
+        scaledVector = sp->getScaledVectorForHyperbolicTangens_2();
+    }
+    if(emissions)
+    {
+        //sp->removeOfEmissions();
+    }
+    t=clock();
+    if(linearScale)
+    {
+        fpm = new FormationPredictedModel(scaledVector, 0.0, FANN_SIGMOID_SYMMETRIC, FANN_TRAIN_RPROP);
+    }
+    else
+    {
+        fpm = new FormationPredictedModel(scaledVector, 0.0, FANN_SIGMOID, FANN_TRAIN_RPROP);
+    }
     fpm->genesisNeuralNetwork();
     predict = fpm->predicted(7);
+    predictValues.clear();
+    predictValues.push_back(currentValue);
     qDebug() << "Old value: " << currentValue;
     for(int i = 0; i < predict.size(); i++)
     {
-        delta = sp->getScaledReverseValueHyperbolicTangens(predict.at(i));
-        //currentValue += delta;
-        qDebug() << "change:" << delta << "value: " << currentValue;
+        if(linearScale)
+        {
+            delta = sp->getScaledReverseValueHyperbolicTangens(predict.at(i));
+        }
+        else
+        {
+            delta = sp->getScaledReverseValueHyperbolicTangens_2(predict.at(i));
+        }
+        if(DS)
+        {
+            currentValue += delta;
+        } else
+        {
+            currentValue = delta;
+        }
+        predictValues.push_back(currentValue);
+        qDebug() << "value: " << currentValue;
     }
     qDebug() << "----------Time: " << clock() - t << " --------";
-
-    t=clock();
-    currentValue = lastValue;
-    sp = new StatisticalParameters(ar);
-    scaledVector = sp->getScaledVectorForHyperbolicTangens_2();
-    //sp->removeOfEmissions();
-    fpm = new FormationPredictedModel(scaledVector, 0.0, FANN_SIGMOID, FANN_TRAIN_RPROP);
-    fpm->genesisNeuralNetwork();
-    predict = fpm->predicted(7);
-    qDebug() << "Old value: " << currentValue;
-    for(int i = 0; i < predict.size(); i++)
-    {
-        delta = sp->getScaledReverseValueHyperbolicTangens_2(predict.at(i));
-        //currentValue += delta;
-        qDebug() << "change:" << delta << "value: " << currentValue;
-    }
-    qDebug() << "----------Time: " << clock() - t << " --------";
-
-    /*
-    t=clock();
-    currentValue = lastValue;
-    sp = new StatisticalParameters(ar);
-    scaledVector = sp->getScaledVectorForHyperbolicTangens_2();
-    //sp->removeOfEmissions();
-    fpm = new FormationPredictedModel(scaledVector, 0.0, FANN_SIGMOID, FANN_TRAIN_RPROP);
-    fpm->genesisNeuralNetwork();
-    predict = fpm->predicted(7);
-    qDebug() << "Old value: " << currentValue;
-    for(int i = 0; i < predict.size(); i++)
-    {
-        delta = sp->getScaledReverseValueHyperbolicTangens_2(predict.at(i));
-        currentValue += delta;
-        qDebug() << "change:" << delta << "value: " << currentValue;
-    }
-    qDebug() << "--------------";
-    qDebug() << "----------Time: " << clock() - t << " --------";
-
-    t=clock();
-    currentValue = lastValue;
-    sp = new StatisticalParameters(ar);
-    scaledVector = sp->getScaledVectorForHyperbolicTangens();
-    //sp->removeOfEmissions();
-    fpm = new FormationPredictedModel(scaledVector, 0.0, FANN_SIGMOID_SYMMETRIC, FANN_TRAIN_QUICKPROP);
-    fpm->genesisNeuralNetwork();
-    predict = fpm->predicted(7);
-    qDebug() << "Old value: " << currentValue;
-    for(int i = 0; i < predict.size(); i++)
-    {
-        delta = sp->getScaledReverseValueHyperbolicTangens(predict.at(i));
-        currentValue += delta;
-        qDebug() << "change:" << delta << "value: " << currentValue;
-    }
-    qDebug() << "----------Time: " << clock() - t << " --------";
-
-    t=clock();
-    currentValue = lastValue;
-    sp = new StatisticalParameters(ar);
-    scaledVector = sp->getScaledVectorForHyperbolicTangens_2();
-    //sp->removeOfEmissions();
-    fpm = new FormationPredictedModel(scaledVector, 0.0, FANN_SIGMOID, FANN_TRAIN_QUICKPROP);
-    fpm->genesisNeuralNetwork();
-    predict = fpm->predicted(7);
-    qDebug() << "Old value: " << currentValue;
-    for(int i = 0; i < predict.size(); i++)
-    {
-        delta = sp->getScaledReverseValueHyperbolicTangens_2(predict.at(i));
-        currentValue += delta;
-        qDebug() << "change:" << delta << "value: " << currentValue;
-    }
-    qDebug() << "--------------";
-    qDebug() << "----------Time: " << clock() - t << " --------";
-    */
+    return this->predictValues;
 }

@@ -159,3 +159,18 @@ bool ConnectorDB::tryConnection(char* ip, char* login, char* password, char* sch
         return false;
     }
 }
+
+int ConnectorDB::getFreeIdNeuralNetwork()
+{
+    char* query = new char[128];
+    sprintf(query, "SELECT MIN(id_neural_network + 1)"
+            "FROM  `neural_network `"
+            "WHERE id_neural_network + 1 NOT "
+            "IN ("
+            "SELECT uid"
+            "FROM  `neural_network`)");
+    sql::Statement *stmt = con->createStatement();
+    sql::ResultSet *res = stmt->executeQuery(query);
+    res->next();
+    return (int) res->getInt(0);
+}
