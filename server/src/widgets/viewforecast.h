@@ -20,6 +20,7 @@
 #include "../core/connectordb.h"
 #include <QString>
 #include <tuple>
+#include <stdlib.h>
 #include "createnetwork.h"
 
 namespace Ui {

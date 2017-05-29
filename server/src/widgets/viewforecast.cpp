@@ -121,15 +121,16 @@ ViewForecast::~ViewForecast()
 
 void ViewForecast::setGraphData(vector<double> date, vector<double> value)
 {
-    plot_data->setTitle( "Qwt demonstration" ); // заголовок
+    plot_data->setTitle(ui->Mark->currentText()); // заголовок
     plot_data->setCanvasBackground( Qt::white ); // цвет фона
 
     // Параметры осей координат
-    plot_data->setAxisTitle(QwtPlot::yLeft, "Y");
-    plot_data->setAxisTitle(QwtPlot::xBottom, "X");
+    plot_data->setAxisTitle(QwtPlot::yLeft,
+                            model->headerData(0, Qt::Horizontal).toString());
+    plot_data->setAxisTitle(QwtPlot::xBottom, model->headerData(1, Qt::Horizontal).toString());
     plot_data->insertLegend( new QwtLegend() );
 
-    curve->setTitle( "Demo Curve" );
+    curve->setTitle("Реальные данные");
 
 
     int n = date.size();
@@ -148,16 +149,8 @@ void ViewForecast::setGraphData(vector<double> date, vector<double> value)
 
 void ViewForecast::setGraphPredict(vector<double> date, vector<double> value)
 {
-    plot_data->setTitle( "Qwt demonstration" ); // заголовок
-    plot_data->setCanvasBackground( Qt::white ); // цвет фона
 
-    // Параметры осей координат
-    plot_data->setAxisTitle(QwtPlot::yLeft, "Y");
-    plot_data->setAxisTitle(QwtPlot::xBottom, "X");
-    plot_data->insertLegend( new QwtLegend() );
-
-    curvePredict->setTitle( "Predict" );
-
+    curvePredict->setTitle("Прогноз");
 
     int n = date.size();
     double x[n];
@@ -524,7 +517,15 @@ vector<double> ViewForecast::getForecast(const char* pathForecast)
     {
         while (getline(myfile,line) )
         {
-            result.push_back(atof(line.c_str()));
+            char* read = (char*) line.c_str();
+            for(int i = 0; i < strlen(read); i++)
+            {
+                if(read[i] == '.')
+                {
+                    read[i] = ',';
+                }
+            }
+            result.push_back(atof(read));
         }
         myfile.close();
     }
