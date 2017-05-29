@@ -5,8 +5,13 @@
  */
 package repo;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,8 +24,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.SingleSelectionModel;
-import javafx.scene.control.Tab;
+import static repo.MainController.connect;
 
 /**
  * FXML Controller class
@@ -29,6 +33,9 @@ import javafx.scene.control.Tab;
  */
 public class DataViewController implements Initializable {
 
+    private static DataInputStream in;
+    private static DataOutputStream out;
+    
     @FXML
     ComboBox TypeResource;
     @FXML
@@ -69,6 +76,9 @@ public class DataViewController implements Initializable {
 
         dataLineChart.getData().add(series1);
         dataLineChart.getData().add(series2);
+        
+        setConnectAndData(connect.getDataInputStream(), 
+                    connect.getDataOutputStream());
     }
 
     @FXML
@@ -79,5 +89,35 @@ public class DataViewController implements Initializable {
     @FXML
     public void comboBoxMarkChange() {
         System.out.println("mark");
+    }
+    
+    @FXML
+    public void setConnectAndData(DataInputStream dataInputStream, 
+            DataOutputStream dataOutputStream)
+    {
+        in = dataInputStream;
+        out = dataOutputStream;
+        setBeginData();
+    }
+    
+    private void setBeginData()
+    {
+        try {
+            String result;
+            int id_type_resources = 0;
+            int id_data_resources = 0;
+            result = ConnectWithRemoteManagerSocket.sendMessage(
+                    "--get_types", in, out, 1024);
+            System.out.println(result);
+            result = ConnectWithRemoteManagerSocket.sendMessage(
+                    "--get_marks " +id_type_resources, in, out, 1024);
+            result = ConnectWithRemoteManagerSocket.sendMessage(
+                    "--get_data " + id_data_resources, in, out, 1048576); // 1mb
+            System.out.println("init in and out");
+        } catch (IOException ex) {
+            
+        } catch (InterruptedException ex) {
+            
+        }
     }
 }

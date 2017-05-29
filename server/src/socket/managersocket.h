@@ -59,6 +59,7 @@ public:
     ManagerSocket(int ip, int port, int sock, int type_sock, int type_protocol = 0);
     ~ManagerSocket();
     void run();
+    bool containsInBeginFirstStr(char* str1, char* str2);
 };
 
 #endif /* MANAGERSOCKET_H */

@@ -8,10 +8,10 @@ package repo;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,27 +29,32 @@ import javafx.scene.layout.HBox;
  */
 public class MainController implements Initializable {
 
-    private ObservableList<Tab> Tabs = FXCollections.observableArrayList();
-    private ConnectWithRemoteManagerSocket connect;
+    @FXML
+    private Tab SpecialTab;
+    public static ConnectWithRemoteManagerSocket connect;
     @FXML
     private Label ResultConnect;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        try {
-//            connect = new ConnectWithRemoteManagerSocket("127.0.0.1", 6000);
-//            ResultConnect.setText("ON");
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-//            ResultConnect.setText("OFF");
-//        }
+        try {
+            connect = new ConnectWithRemoteManagerSocket("127.0.0.1", 6000);
+            ResultConnect.setText("ON");
+        } catch (IOException ex) {
+            ResultConnect.setText("OFF");
+        }
+        specialTabPressClicked();
+        SpecialTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+                specialTabPressClicked();
+            }
+        });
     }
 
     @FXML
     private Pane SpecialPane;
 
-    @FXML
-    private Tab SpecialTab;
 
     @FXML
     private TabPane SourceTabPane;
@@ -70,10 +75,11 @@ public class MainController implements Initializable {
             SingleSelectionModel<Tab> selectionModel = SourceTabPane.getSelectionModel();
             selectionModel.select(tab);
             SourceTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.SELECTED_TAB);
+
             //DataViewController controller = loader.getController();
             //controller.setMainApp(this);
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
     }
 }

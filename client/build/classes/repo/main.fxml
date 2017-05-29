@@ -26,7 +26,7 @@
       </MenuBar>
       <TabPane fx:id="SourceTabPane" layoutX="28.0" layoutY="65.0" prefHeight="431.0" prefWidth="639.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="SpecialTab" onSelectionChanged="#specialTabPressClicked" text="+">
+          <Tab fx:id="SpecialTab" text="+">
                <content>
                   <Pane id="SpecialTaPane" fx:id="SpecialPane" prefHeight="393.0" prefWidth="628.0" />
                </content></Tab>

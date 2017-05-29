@@ -90,11 +90,36 @@ void ManagerSocket::run() {
                     clients.erase(*it);
                     continue;
                 }
-
-                if (!strcmp(data_client, (char*) "--intellectual")) {
-                    //intellectualManage(*it);
+                if(!strcmp(data_client, "--get_types"))
+                {
+                    char* result = "oil,gas,palladium";
+                    send(*it, result, strlen(result), 0);
+                    continue;
+                } else {
+                    char* result = "ываыаыв";
+                    send(*it, result, strlen(result), 0);
                 }
             }
         }
+    }
+}
+
+bool ManagerSocket::containsInBeginFirstStr(char* str1, char* str2)
+{
+    if(strlen(str1) > strlen(str2))
+    {
+        return false;
+    }
+    else
+    {
+        bool result = true;
+        for(int i = 0; i < strlen(str1); i++)
+        {
+            if(str1[i] != str2[i])
+            {
+                result = false;
+            }
+        }
+        return result;
     }
 }

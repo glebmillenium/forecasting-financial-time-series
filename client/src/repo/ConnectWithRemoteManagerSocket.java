@@ -71,7 +71,7 @@ public class ConnectWithRemoteManagerSocket extends Thread {
         }
     }
 
-    private String CppToJavaString(String strcpp) {
+    private static String CppToJavaString(String strcpp) {
         String result = "";
         for (int i = 0; i < strcpp.length(); i++) {
             if (strcpp.charAt(i) == '\0') {
@@ -105,13 +105,13 @@ public class ConnectWithRemoteManagerSocket extends Thread {
      * @throws InterruptedException
      */
     public static String sendMessage(String text, DataInputStream in,
-            DataOutputStream out, int sizeByte) throws IOException, InterruptedException {
+            DataOutputStream out, int sizeByteAnswer) throws IOException, InterruptedException {
         out.write((text + '\0').getBytes("UTF-8"));
         out.flush();
-        byte[] b = new byte[sizeByte];
+        byte[] b = new byte[sizeByteAnswer];
         in.read(b);
         String answer = new String(b, "UTF-8");
-        return answer;
+        return CppToJavaString(answer);
     }
 
     public void stopping() {
