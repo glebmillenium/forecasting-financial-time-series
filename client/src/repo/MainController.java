@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,8 +21,6 @@ import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 /**
@@ -39,13 +36,13 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            connect = new ConnectWithRemoteManagerSocket("127.0.0.1", 6000);
-            ResultConnect.setText("ON");
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-            ResultConnect.setText("OFF");
-        }
+//        try {
+//            connect = new ConnectWithRemoteManagerSocket("127.0.0.1", 6000);
+//            ResultConnect.setText("ON");
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+//            ResultConnect.setText("OFF");
+//        }
     }
 
     @FXML

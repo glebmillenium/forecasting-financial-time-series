@@ -23,12 +23,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <LineChart layoutX="21.0" layoutY="79.0" prefHeight="247.0" prefWidth="317.0">
+      <LineChart fx:id="dataLineChart" layoutX="21.0" layoutY="79.0" prefHeight="247.0" prefWidth="317.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis fx:id="xAxis" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
       </LineChart>
       <Label layoutX="21.0" layoutY="11.0" text="Тип ресурса" />
