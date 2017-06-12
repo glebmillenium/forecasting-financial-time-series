@@ -28,7 +28,6 @@ LIBS += -L/usr/local -lcrypt -lfann -lqwt-qt5 -lmysqlcppconn -std=c++0x -pthread
 SOURCES += main.cpp \
     widgets/viewdata.cpp \
     widgets/settings.cpp \
-    widgets/mainwindow.cpp \
     widgets/dialoguploaddata.cpp \
     widgets/choosemenu.cpp \
     socket/managersocket.cpp \
@@ -40,12 +39,12 @@ SOURCES += main.cpp \
     core/defs.cpp \
     widgets/viewforecast.cpp \
     widgets/createnetwork.cpp \
-    core/formationpredictedmodel.cpp
+    core/formationpredictedmodel.cpp \
+    widgets/mainwindow.cpp
 
 HEADERS  += \
     widgets/viewdata.h \
     widgets/settings.h \
-    widgets/mainwindow.h \
     widgets/dialoguploaddata.h \
     widgets/choosemenu.h \
     socket/managersocket.h \
@@ -60,16 +59,17 @@ HEADERS  += \
     core/defs.h \
     widgets/viewforecast.h \
     widgets/createnetwork.h \
-    core/formationpredictedmodel.h
+    core/formationpredictedmodel.h \
+    widgets/mainwindow.h
 
 FORMS    += \
     widgets/viewdata.ui \
     widgets/settings.ui \
-    widgets/mainwindow.ui \
     widgets/dialoguploaddata.ui \
     widgets/choosemenu.ui \
     widgets/viewforecast.ui \
-    widgets/createnetwork.ui
+    widgets/createnetwork.ui \
+    widgets/mainwindow.ui
 
 unix: CONFIG += link_pkgconfig \
                 qwt

@@ -72,7 +72,7 @@ void ViewData::beginSelectCombobox()
 
     const char* fileName = qPrintable(std::get<2>(this->DataResource[index]));
     char* fullFileName = new char[256];
-    sprintf(fullFileName, "%s%s", dataStore, fileName);
+    sprintf(fullFileName, "%s", fileName);
     int countColumns = InteractionWithNetwork::countColumnsInTable(fullFileName);
     int countRows = InteractionWithNetwork::countRowsInTable(fullFileName);
     model = new QStandardItemModel(countRows, countColumns);
@@ -102,8 +102,7 @@ void ViewData::changeIndex2(int index)
 {
     model->clear();
     char* fullFileName = new char[256];
-    sprintf(fullFileName, "%s%s", dataStore,
-            std::get<2>(this->DataResource[index]).toStdString().c_str());
+    sprintf(fullFileName, "%s", std::get<2>(this->DataResource[index]).toStdString().c_str());
     int countRows = InteractionWithNetwork::countRowsInTable(fullFileName);
     if(countRows > -1)
     {

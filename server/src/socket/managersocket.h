@@ -39,7 +39,11 @@
 #include <set>
 #include <cstring>
 #include <string>
+#include <fstream>
+#include <tuple>
+#include "qstring.h"
 #include <QThread>
+#include <QDebug>
 #include "../core/connectordb.h"
 using namespace std;
 
@@ -53,6 +57,7 @@ private:
     int listener;
     struct sockaddr_in addr;
     ConnectorDB* connectorDB;
+    char *serializeGetTypes(vector<tuple<int, QString> >, int);
 public:
     ManagerSocket();
     ManagerSocket(int port);

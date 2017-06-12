@@ -16,7 +16,7 @@
   <widget class="QCheckBox" name="DS">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>290</x>
      <y>50</y>
      <width>141</width>
      <height>51</height>
@@ -30,7 +30,7 @@
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>290</x>
      <y>10</y>
      <width>51</width>
      <height>25</height>
@@ -70,7 +70,7 @@
   <widget class="QCheckBox" name="emissions">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>290</x>
      <y>120</y>
      <width>181</width>
      <height>21</height>
@@ -83,7 +83,7 @@
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>300</x>
      <y>240</y>
      <width>113</width>
      <height>25</height>
@@ -134,9 +134,9 @@
   <widget class="QComboBox" name="scale">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>290</x>
      <y>190</y>
-     <width>131</width>
+     <width>201</width>
      <height>25</height>
     </rect>
    </property>

@@ -15,10 +15,6 @@ ChooseMenu::ChooseMenu(QWidget *parent) :
     QPixmap viewForecastPixar(
                 "/home/glebmillenium/repositories/forecasting-financial-time-series/server/src/other/viewForecast.png");
     ui->viewForecast->setIcon(viewForecastPixar);
-    QPixmap viewStatisticPixar(
-                "/home/glebmillenium/repositories/forecasting-financial-time-series/server/src/other/viewStatistic.png");
-    ui->viewStatistic->setIcon(viewStatisticPixar);
-
     QIcon pix("/home/glebmillenium/repositories/forecasting-financial-time-series/server/src/other/retry.png");
     ui->retryConnect->setIcon(pix);
     ui->retrySocket->setIcon(pix);
@@ -49,12 +45,20 @@ ChooseMenu::ChooseMenu(QWidget *parent) :
         ui->statusR->setPixmap(myPixmap);
         ui->retryConnect->setVisible(true);
     }
+
+    QPixmap myupddata("/home/glebmillenium/repositories/forecasting-financial-time-series/server/src/other/unsuccessfull.png");
+    ui->autoupdatedata->setIcon(myupddata);
+    QPixmap myupdforecast("/home/glebmillenium/repositories/forecasting-financial-time-series/server/src/other/unsuccessfull.png");
+    ui->autoupdateforeast->setIcon(myupdforecast);
 }
 
 
 ChooseMenu::~ChooseMenu()
 {
+    first.join();
+
     delete ui;
+    exit(0);
 }
 
 void ChooseMenu::on_viewData_clicked()
@@ -114,5 +118,6 @@ void ChooseMenu::startSocket()
 {
     ManagerSocket* ms = new ManagerSocket(6000);
     ms->run();
+
 }
 

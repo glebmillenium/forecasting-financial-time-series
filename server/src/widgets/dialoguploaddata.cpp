@@ -16,7 +16,6 @@ DialogUploadData::DialogUploadData(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogUploadData)
 {
-
     addItems();
 }
 
@@ -112,7 +111,7 @@ void DialogUploadData::on_buttonBox_accepted()
     writeToFile("file.csv");
     char* str = new char[256];
 
-    sprintf(str, "mv file.csv %s%s", (const char*) dataStore, this->fileName.toStdString().c_str());
+    sprintf(str, "mv file.csv %s", this->fileName.toStdString().c_str());
     system(str);
 }
 

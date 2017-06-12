@@ -5,27 +5,14 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="368.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repo.DataViewController">
+<AnchorPane id="AnchorPane" prefHeight="460.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="repo.DataViewController">
    <children>
-      <GridPane gridLinesVisible="true" layoutX="360.0" layoutY="29.0" prefHeight="293.0" prefWidth="221.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-      <LineChart fx:id="dataLineChart" layoutX="21.0" layoutY="79.0" prefHeight="247.0" prefWidth="317.0">
+      <LineChart fx:id="dataLineChart" layoutX="21.0" layoutY="79.0" prefHeight="269.0" prefWidth="376.0">
         <xAxis>
-          <CategoryAxis fx:id="xAxis" side="BOTTOM" />
+          <CategoryAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
         <yAxis>
           <NumberAxis fx:id="yAxis" side="LEFT" />
@@ -33,7 +20,12 @@
       </LineChart>
       <Label layoutX="21.0" layoutY="11.0" text="Тип ресурса" />
       <ComboBox fx:id="TypeResource" layoutX="21.0" layoutY="29.0" onAction="#comboBoxTypeResourceChange" prefWidth="150.0" />
-      <ComboBox fx:id="Mark" layoutX="180.0" layoutY="29.0" onAction="#comboBoxMarkChange" prefWidth="150.0" />
+      <ComboBox fx:id="Mark" layoutX="180.0" layoutY="29.0" onAction="#comboBoxMarkChange" prefHeight="26.0" prefWidth="216.0" />
       <Label layoutX="180.0" layoutY="11.0" text="Марка" />
+      <TableView fx:id="table" layoutX="419.0" layoutY="27.0" prefHeight="419.0" prefWidth="267.0">
+        <columns>
+            
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

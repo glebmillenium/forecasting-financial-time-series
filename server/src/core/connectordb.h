@@ -70,12 +70,16 @@ public:
                                char* path_file_contains_forecast,
                                const char* date_with_forecast,
                                int scale, int differential_series, int number_col_forecast);
+    vector<tuple<int, QString> > selectDataResourceOnlyIdAndData(int id_type_resources);
+    char *getPathFileData(int id_data_resources);
+    char *getPathFileForecast(int id_data_resources);
 private:
     sql::Driver *driver;
     sql::Connection *con;
     
     char* SQLStringToChar(sql::SQLString str);
     char* getCurrentTime();
+
 };
 
 #endif /* CONNECTORDB_H */

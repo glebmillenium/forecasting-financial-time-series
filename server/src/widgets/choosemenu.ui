@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>552</width>
-    <height>265</height>
+    <width>583</width>
+    <height>374</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,8 +50,8 @@
     <rect>
      <x>270</x>
      <y>50</y>
-     <width>261</width>
-     <height>191</height>
+     <width>281</width>
+     <height>171</height>
     </rect>
    </property>
    <property name="title">
@@ -197,19 +197,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="viewStatistic">
-   <property name="geometry">
-    <rect>
-     <x>220</x>
-     <y>230</y>
-     <width>20</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QPushButton" name="viewDataSource">
    <property name="geometry">
     <rect>
@@ -265,18 +252,76 @@
 данных</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_8">
+  <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>220</y>
-     <width>171</width>
-     <height>17</height>
+     <y>230</y>
+     <width>541</width>
+     <height>111</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Просмотр статистики</string>
+   <property name="title">
+    <string>Расписание обновлений</string>
    </property>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>431</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Автообновление биржевых данных из внешних источников</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>431</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Автоматическое прогнозирование</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="autoupdatedata">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>30</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="autoupdateforeast">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>70</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
